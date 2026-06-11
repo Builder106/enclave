@@ -32,6 +32,7 @@ export async function ensureTables(): Promise<void> {
     CREATE TABLE IF NOT EXISTS runs (
       id TEXT PRIMARY KEY,
       document_id TEXT NOT NULL,
+      seed INTEGER NOT NULL,
       provider TEXT NOT NULL,
       model TEXT NOT NULL,
       result_json TEXT NOT NULL,
@@ -62,6 +63,13 @@ export async function ensureTables(): Promise<void> {
       created_at INTEGER NOT NULL
     );
   `);
+  // Legacy DBs predate runs.seed; every pre-existing row was seed 1.
+  try {
+    await getClient().execute("ALTER TABLE runs ADD COLUMN seed INTEGER");
+    await getClient().execute("UPDATE runs SET seed = 1 WHERE seed IS NULL");
+  } catch {
+    // column already exists
+  }
 }
 
 export function newId(prefix: string): string {

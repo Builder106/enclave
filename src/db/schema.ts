@@ -14,6 +14,8 @@ export const documents = sqliteTable("documents", {
 export const runs = sqliteTable("runs", {
   id: text("id").primaryKey(),
   documentId: text("document_id").notNull(),
+  /** document ids repeat across seeds — seed disambiguates for accumulation */
+  seed: integer("seed").notNull(),
   provider: text("provider").notNull(),
   model: text("model").notNull(),
   resultJson: text("result_json").notNull(),

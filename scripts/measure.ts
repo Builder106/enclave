@@ -1,6 +1,7 @@
 // Relative imports: tsx does not resolve the "@" path alias.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { and, eq } from "drizzle-orm";
 import {
   PROVIDERS,
   type DocumentRunResult,
@@ -99,11 +100,15 @@ async function main(): Promise<void> {
   const provider = providerRaw as Provider;
   const model = flags.get("model");
   const count = flags.has("count") ? intFlag(flags, "count", 0) : undefined;
+  const offset = intFlag(flags, "offset", 0);
 
   const docs = loadOrGenerateBatch(seed);
-  let evalDocs = docs.filter((d) => d.split === "eval");
-  if (count !== undefined) evalDocs = evalDocs.slice(0, count);
-  if (evalDocs.length === 0) throw new Error(`no eval documents for seed ${seed}`);
+  const allEvalDocs = docs.filter((d) => d.split === "eval");
+  // Chunked runs: [offset, offset+count). Metrics accumulate across chunks
+  // from the runs table (latest row per document wins, so retries supersede
+  // quota-throttled failures).
+  const chunk = allEvalDocs.slice(offset, count !== undefined ? offset + count : undefined);
+  if (chunk.length === 0) throw new Error(`no eval documents in range for seed ${seed}`);
 
   await ensureTables();
   const { db } = getDb();
@@ -111,14 +116,14 @@ async function main(): Promise<void> {
   await audit({
     actor: "cli",
     action: "measure_start",
-    detail: `seed=${seed} provider=${provider} docs=${evalDocs.length}`,
+    detail: `seed=${seed} provider=${provider} docs=${chunk.length} offset=${offset}`,
   });
 
-  console.log(`Measuring ${provider} on ${evalDocs.length} eval docs (seed ${seed})`);
+  console.log(`Measuring ${provider} on ${chunk.length} eval docs (seed ${seed}, offset ${offset})`);
   const results: DocumentRunResult[] = [];
   // Sequential on purpose: local models share one machine's compute budget.
-  for (let i = 0; i < evalDocs.length; i++) {
-    const doc = evalDocs[i];
+  for (let i = 0; i < chunk.length; i++) {
+    const doc = chunk[i];
     const result = await runDocument(
       { id: doc.id, text: doc.text },
       model !== undefined ? { provider, model } : { provider },
@@ -127,6 +132,7 @@ async function main(): Promise<void> {
     await db.insert(runs).values({
       id: newId("RUN"),
       documentId: result.documentId,
+      seed,
       provider: result.provider,
       model: result.model,
       resultJson: JSON.stringify(result),
@@ -138,13 +144,49 @@ async function main(): Promise<void> {
       error: result.error,
       createdAt: Date.now(),
     });
-    if ((i + 1) % 10 === 0 || i + 1 === evalDocs.length) {
+    if ((i + 1) % 10 === 0 || i + 1 === chunk.length) {
       const errors = results.filter((r) => r.error !== null).length;
-      console.log(`  [${i + 1}/${evalDocs.length}] last=${doc.id} ${result.latencyMs}ms errors=${errors}`);
+      console.log(`  [${i + 1}/${chunk.length}] last=${doc.id} ${Math.round(result.latencyMs)}ms errors=${errors}`);
+    }
+    const tail = results.slice(-3);
+    if (tail.length === 3 && tail.every((r) => r.error !== null && /too many|throttl|quota/i.test(r.error))) {
+      console.log(`  aborting after 3 consecutive quota/throttle errors at ${doc.id} — rerun this range after the quota resets`);
+      break;
     }
   }
 
-  const metrics = computeMetrics(evalDocs, results);
+  // Cumulative view: latest run per document across every chunk so far.
+  // Quota/throttle rows are infrastructure noise, not model measurements —
+  // they never count; the doc stays unmeasured until a clean rerun.
+  const rows = (
+    await db
+      .select()
+      .from(runs)
+      .where(and(eq(runs.provider, provider), eq(runs.seed, seed)))
+  ).filter((row) => !(row.error !== null && /too many|throttl|quota/i.test(row.error)));
+  const latest = new Map<string, (typeof rows)[number]>();
+  for (const row of rows) {
+    const prev = latest.get(row.documentId);
+    if (!prev || row.createdAt > prev.createdAt) latest.set(row.documentId, row);
+  }
+  const measuredDocs = allEvalDocs.filter((d) => latest.has(d.id));
+  const cumulative = measuredDocs.map(
+    (d) => JSON.parse(latest.get(d.id)!.resultJson) as DocumentRunResult,
+  );
+  console.log(
+    `coverage: ${measuredDocs.length}/${allEvalDocs.length} eval docs measured for ${provider}`,
+  );
+  if (measuredDocs.length === 0) {
+    await audit({
+      actor: "cli",
+      action: "measure_finish",
+      detail: `seed=${seed} provider=${provider} no clean runs — nothing written`,
+    });
+    console.log("no clean measurements yet — measurement file untouched");
+    return;
+  }
+
+  const metrics = computeMetrics(measuredDocs, cumulative);
 
   const measurePath = path.join(process.cwd(), "data", "measurements", `seed-${seed}.json`);
   let otherResults: EvalMetrics[] = [];
@@ -156,7 +198,7 @@ async function main(): Promise<void> {
     version: 1,
     seed,
     split: "eval",
-    docCount: evalDocs.length,
+    docCount: allEvalDocs.length,
     generatedAt: new Date().toISOString(),
     results: [...otherResults, metrics],
   };
