@@ -4,6 +4,10 @@
 > things happen — retrospectives need this raw material to land.
 > Reverse-chronological; one paragraph max per entry.
 
+## 2026-06-11 — Bedrock gate cleared; free-plan daily token quota blocks Trial 03 #incident
+
+First Bedrock invoke from the new AWS account: auth via a Bedrock API key (`AWS_BEARER_TOKEN_BEDROCK` — no manual IAM user needed; the AI SDK provider reads it natively), Anthropic use-case gate passed, model reachable — then throttled with "Too many tokens per day" before a single document completed. New/free-plan accounts carry a tiny default daily token quota for Claude models, and the modern console has no per-model "request access" button to hint at any of this. The throttled 0% row was stripped from the measurement file rather than committed — a quota error is not a measurement. Trial 03 waits on a Service Quotas increase or the daily reset; ~65k tokens needed for the 50-doc run.
+
 ## 2026-06-11 — Trial 02 lands: the floor holds, the model wins on robustness #milestone
 
 Full 50-doc local run (qwen2.5:3b via Ollama, 8 GB M1): 100% parse, 96.3% field accuracy, 36% exact match, code F1 81.0, anomaly F1 61.5, p50 23.6 s/doc, $0, 0 bytes egress. Two findings worth quoting: the 3B never fails to structure a document and beats the regex parser on field accuracy (96.3 vs 95.0) — but the deterministic floor wins everywhere else, at five orders of magnitude less latency. And the anomaly precision collapse (53%) is a *cascade*: misread charges flow into the deterministic sum check and raise false flags — the same perception-poisons-arithmetic pattern Helm measured on payout math, now reproduced at 3B scale. The zero-egress column is no longer a design claim; it's a measured number sitting next to the accuracy it costs.
