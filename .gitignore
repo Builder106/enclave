@@ -45,3 +45,4 @@ data/*.db
 data/*.db-journal
 .env
 drizzle/meta
+.npmrc

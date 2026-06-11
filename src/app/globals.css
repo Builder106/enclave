@@ -1,26 +1,56 @@
 @import "tailwindcss";
 
+/* Instrument-panel palette: near-black blue-tinted base, single #4FD1A5 accent. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+  --background: #0b0f14;
+  --foreground: #dce3ea;
+  --card: #0f151c;
+  --card-foreground: #dce3ea;
+  --popover: #0f151c;
+  --popover-foreground: #dce3ea;
+  --primary: #4fd1a5;
+  --primary-foreground: #07221a;
+  --secondary: #151d26;
+  --secondary-foreground: #b7c2cc;
+  --muted: #151d26;
+  --muted-foreground: #8b98a5;
+  --accent: #16202a;
+  --accent-foreground: #dce3ea;
+  --destructive: #f0716a;
+  --border: #1c2630;
+  --input: #1c2630;
+  --ring: #4fd1a5;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  /* System stacks only — builds must not need network fonts. */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco,
+    "Cascadia Mono", Consolas, monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
