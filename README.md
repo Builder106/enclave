@@ -19,14 +19,13 @@
 
 > **96.0% parse rate, 95.0% field accuracy, 84.0% exact match, code-match F1 98.3% (P 100 / R 96.7), anomaly-detection F1 90.0% (P 100 / R 81.8) — at 0.15 ms p50 / 0.44 ms p95, $0, and 0 bytes of PHI egress.** The no-ML floor is deliberately high: a regex-and-heuristics parser over OCR-noisy text sets the bar both models have to clear before their latency and cost are worth paying. Reproduce: `pnpm generate --seed 1 && pnpm measure --provider rules --seed 1`.
 
-**Trials 02 & 03 — pending, honestly.** The local (`qwen2.5:3b-instruct` — the dev machine is an 8 GB M1, so a 3B-class model is the honest pick; use 7B/8B on ≥16 GB) and Bedrock runs have not been executed yet. No numbers will appear here until they have. To produce them:
+**Trial 02 — Local model · qwen2.5:3b-instruct via Ollama · same 50 docs**
+
+> **100% parse rate, 96.3% field accuracy, 36.0% exact match, code-match F1 81.0% (P 81.2 / R 80.8), anomaly-detection F1 61.5% — at 23.6 s p50 / 33.3 s p95 per document on an 8 GB M1, $0, and 0 bytes of PHI egress.** The 3B model *never fails to structure a document* (100% vs the parser's 96%) and edges the floor on field accuracy (96.3 vs 95.0) — but trails badly on exact match, code assignment, and anomaly detection, and pays five orders of magnitude in latency. The anomaly gap is a cascade, not a reasoning failure: misread charges flow into the deterministic sum check and raise false mismatch flags (precision 53.3%) — the same perception-poisons-arithmetic pattern Helm measured on payout math. Verdict on this corpus: the regex floor holds; the local model's win is robustness on noise, not accuracy. (Model chosen for an 8 GB machine — rerun on ≥16 GB with `--model qwen2.5:7b-instruct` to test the size hypothesis.) Reproduce: `ollama pull qwen2.5:3b-instruct && pnpm measure --provider local --seed 1`.
+
+**Trial 03 — pending, honestly.** The Bedrock run has not been executed yet; no numbers will appear here until it has. To produce it:
 
 ```bash
-# Trial 02 — local, zero egress
-ollama pull qwen2.5:3b-instruct
-pnpm measure --provider local --seed 1
-
-# Trial 03 — hosted baseline, metered egress
 export AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=... AWS_REGION=us-east-1
 pnpm measure --provider bedrock --seed 1
 ```

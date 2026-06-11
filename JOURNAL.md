@@ -4,6 +4,10 @@
 > things happen — retrospectives need this raw material to land.
 > Reverse-chronological; one paragraph max per entry.
 
+## 2026-06-11 — Trial 02 lands: the floor holds, the model wins on robustness #milestone
+
+Full 50-doc local run (qwen2.5:3b via Ollama, 8 GB M1): 100% parse, 96.3% field accuracy, 36% exact match, code F1 81.0, anomaly F1 61.5, p50 23.6 s/doc, $0, 0 bytes egress. Two findings worth quoting: the 3B never fails to structure a document and beats the regex parser on field accuracy (96.3 vs 95.0) — but the deterministic floor wins everywhere else, at five orders of magnitude less latency. And the anomaly precision collapse (53%) is a *cascade*: misread charges flow into the deterministic sum check and raise false flags — the same perception-poisons-arithmetic pattern Helm measured on payout math, now reproduced at 3B scale. The zero-egress column is no longer a design claim; it's a measured number sitting next to the accuracy it costs.
+
 ## 2026-06-11 — llama.cpp grammars choke on regex patterns; one bad field must not void a document #incident #decision
 
 Trial 02 first failed 50/50 with "response did not match schema": the model never saw our schema (the openai-compatible provider needs `supportsStructuredOutputs: true` to send it). With that flag, it failed differently — llama.cpp's schema→GBNF converter logged `failed to parse grammar` on our regex `pattern` fields and Ollama then generated *unconstrained*, echoing the document back. Two-part fix that's better measurement design anyway: a `LenientExtractionSchema` (no patterns/lengths) faces the model, and strict format rules moved out of the gate entirely — structural validity is grammar-enforced at generation; value errors (the 3B's empty `firstName`, a mangled MRN) are scored by the metrics as per-field misses instead of zeroing an otherwise-correct document. A grammar that enforces `MRN-\d{7}` would also have silently repaired OCR misreads for the model — removing it keeps the comparison honest. Post-fix probe: 100% parse, 97.2% field accuracy on 3 docs.
