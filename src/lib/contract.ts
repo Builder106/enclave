@@ -6,12 +6,13 @@ import { z } from "zod";
 
 // ── Providers ────────────────────────────────────────────────────────────────
 
-export const PROVIDERS = ["rules", "local", "bedrock"] as const;
+export const PROVIDERS = ["rules", "local", "groq", "bedrock"] as const;
 export type Provider = (typeof PROVIDERS)[number];
 
 export const PROVIDER_LABELS: Record<Provider, string> = {
   rules: "Rules baseline (deterministic)",
   local: "Local LLM (Ollama)",
+  groq: "Groq (hosted open-weights)",
   bedrock: "AWS Bedrock (hosted)",
 };
 
@@ -282,13 +283,26 @@ export const BEDROCK_PRICING: Record<string, { inPerMTok: number; outPerMTok: nu
   "us.anthropic.claude-haiku-4-5-20251001-v1:0": { inPerMTok: 1.0, outPerMTok: 5.0 },
 };
 
+/**
+ * Groq list prices. The free tier bills $0 at our volume — costUsd meters the
+ * list price anyway: it's the marginal cost the moment usage outgrows the
+ * free tier, which is the economically honest number to compare.
+ */
+export const GROQ_PRICING: Record<string, { inPerMTok: number; outPerMTok: number }> = {
+  "llama-3.3-70b-versatile": { inPerMTok: 0.59, outPerMTok: 0.79 },
+  "llama-3.1-8b-instant": { inPerMTok: 0.05, outPerMTok: 0.08 },
+};
+
 // ── Defaults ─────────────────────────────────────────────────────────────────
 
 export const DEFAULTS = {
   /** 8 GB M1 ceiling: a 3B-class model is the honest local pick */
   localModel: "qwen2.5:3b-instruct",
   bedrockModel: "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  /** hosted open-weights ceiling — what scale buys over the local 3B */
+  groqModel: "llama-3.3-70b-versatile",
   ollamaBaseUrl: "http://localhost:11434/v1",
+  groqBaseUrl: "https://api.groq.com/openai/v1",
   dbUrl: "file:./data/enclave.db",
   evalDocCount: 50,
   devDocCount: 10,

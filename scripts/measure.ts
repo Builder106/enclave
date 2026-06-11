@@ -101,17 +101,34 @@ async function main(): Promise<void> {
   const model = flags.get("model");
   const count = flags.has("count") ? intFlag(flags, "count", 0) : undefined;
   const offset = intFlag(flags, "offset", 0);
+  const resume = flags.has("resume");
 
   const docs = loadOrGenerateBatch(seed);
   const allEvalDocs = docs.filter((d) => d.split === "eval");
-  // Chunked runs: [offset, offset+count). Metrics accumulate across chunks
-  // from the runs table (latest row per document wins, so retries supersede
-  // quota-throttled failures).
-  const chunk = allEvalDocs.slice(offset, count !== undefined ? offset + count : undefined);
-  if (chunk.length === 0) throw new Error(`no eval documents in range for seed ${seed}`);
 
   await ensureTables();
   const { db } = getDb();
+
+  // Chunked runs: [offset, offset+count). Metrics accumulate across chunks
+  // from the runs table (latest row per document wins, so retries supersede
+  // quota-throttled failures). --resume instead targets exactly the docs
+  // that still lack a clean run — cron-safe: re-running costs nothing once
+  // coverage is complete.
+  let candidates = allEvalDocs;
+  if (resume) {
+    const cleanIds = new Set(
+      (await db.select().from(runs).where(and(eq(runs.provider, provider), eq(runs.seed, seed))))
+        .filter((row) => !(row.error !== null && /too many|throttl|quota/i.test(row.error)))
+        .map((row) => row.documentId),
+    );
+    candidates = allEvalDocs.filter((d) => !cleanIds.has(d.id));
+    if (candidates.length === 0) {
+      console.log(`coverage already complete: ${allEvalDocs.length}/${allEvalDocs.length} for ${provider} — nothing to do`);
+      return;
+    }
+  }
+  const chunk = candidates.slice(offset, count !== undefined ? offset + count : undefined);
+  if (chunk.length === 0) throw new Error(`no eval documents in range for seed ${seed}`);
   const startedAt = Date.now();
   await audit({
     actor: "cli",

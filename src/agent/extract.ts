@@ -3,6 +3,7 @@ import {
   LenientExtractionSchema,
   type Extraction,
   type LenientExtraction,
+  type Provider,
   type TokenUsage,
 } from "@/lib/contract";
 import { getLanguageModel } from "@/lib/providers";
@@ -77,7 +78,7 @@ export function normalizeExtraction(lenient: LenientExtraction): {
 
 export async function llmExtract(
   text: string,
-  provider: "local" | "bedrock",
+  provider: Exclude<Provider, "rules">,
   modelOverride?: string,
 ): Promise<{
   extraction: Extraction | null;

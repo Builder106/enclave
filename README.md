@@ -8,10 +8,10 @@
 [![Node](https://img.shields.io/badge/Node-22%2B-339933.svg?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black.svg?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![AI SDK](https://img.shields.io/badge/AI%20SDK-5-0A0A0A.svg)](https://ai-sdk.dev/)
-[![PHI egress](https://img.shields.io/badge/PHI%20egress-0%20bytes%20(local%20path)-success.svg)](#the-three-provider-design)
+[![PHI egress](https://img.shields.io/badge/PHI%20egress-0%20bytes%20(local%20path)-success.svg)](#the-four-provider-design)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
 
-> **Enclave is a local-first agentic pipeline for clinical/billing documents.** OCR-noisy superbills go in; structured records come out — extraction → ICD-10/CPT code matching → anomaly flagging — running entirely on-device via Ollama, with AWS Bedrock as the metered hosted baseline and a deterministic rules parser as the no-ML floor. PHI never leaves the machine on the local path, and the eval harness *proves* it: egress bytes are a first-class metric, measured per run, rendered on the dashboard next to accuracy and cost.
+> **Enclave is a local-first agentic pipeline for clinical/billing documents.** OCR-noisy superbills go in; structured records come out — extraction → ICD-10/CPT code matching → anomaly flagging — running entirely on-device via Ollama, with metered hosted baselines (Groq open-weights, AWS Bedrock frontier) and a deterministic rules parser as the no-ML floor. PHI never leaves the machine on the local path, and the eval harness *proves* it: egress bytes are a first-class metric, measured per run, rendered on the dashboard next to accuracy and cost.
 
 ## The headline findings
 
@@ -23,12 +23,10 @@
 
 > **100% parse rate, 96.3% field accuracy, 36.0% exact match, code-match F1 81.0% (P 81.2 / R 80.8), anomaly-detection F1 61.5% — at 23.6 s p50 / 33.3 s p95 per document on an 8 GB M1, $0, and 0 bytes of PHI egress.** The 3B model *never fails to structure a document* (100% vs the parser's 96%) and edges the floor on field accuracy (96.3 vs 95.0) — but trails badly on exact match, code assignment, and anomaly detection, and pays five orders of magnitude in latency. The anomaly gap is a cascade, not a reasoning failure: misread charges flow into the deterministic sum check and raise false mismatch flags (precision 53.3%) — the same perception-poisons-arithmetic pattern Helm measured on payout math. Verdict on this corpus: the regex floor holds; the local model's win is robustness on noise, not accuracy. (Model chosen for an 8 GB machine — rerun on ≥16 GB with `--model qwen2.5:7b-instruct` to test the size hypothesis.) Reproduce: `ollama pull qwen2.5:3b-instruct && pnpm measure --provider local --seed 1`.
 
-**Trial 03 — pending, honestly.** The Bedrock run has not been executed yet; no numbers will appear here until it has. To produce it:
+**Trials 03 & 04 — pending, honestly.** No numbers will appear here until the runs execute.
 
-```bash
-export AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=... AWS_REGION=us-east-1
-pnpm measure --provider bedrock --seed 1
-```
+- **Trial 03 (Bedrock / Claude Haiku 4.5):** blocked by AWS's new-account ramp — fresh accounts get Claude's daily-token quota pinned near zero, and it is not self-service adjustable. A launchd job (`scripts/trial03-cron.sh`) retries daily with `--resume`, measuring only still-unmeasured docs each reset until coverage reaches 50/50; quota throttles are excluded from metrics as infrastructure noise, never counted as model failures.
+- **Trial 04 (Groq / Llama 3.3 70B):** the hosted *open-weights* ceiling — same model family as the local 3B, so the column answers "is it the size or the family?" Runs on Groq's free tier: `GROQ_API_KEY=... pnpm measure --provider groq --seed 1`. Its egress column is deliberately nonzero — proof the meter isn't decorative.
 
 **A caveat the numbers need:** the synthetic generator draws service-line descriptions from the *same* code dataset the matcher searches (verbatim or via synonyms), so code-matching is materially easier here than against free-text from real clinicians. The rules baseline's 98.3% code F1 should be read as a ceiling-calibration of the harness, not a claim about real-world coding. See [docs/BRIEF.md](docs/BRIEF.md) for the full design rationale.
 
@@ -51,9 +49,9 @@ sequenceDiagram
         Agent->>R: parse (regex + heuristics)
     else provider = local
         Agent->>L: generateObject(ExtractionSchema)
-    else provider = bedrock
+    else provider = groq | bedrock
         Agent->>B: generateObject(ExtractionSchema)
-        Note over Agent,B: the only path where document bytes<br/>leave the machine — metered as egressBytes
+        Note over Agent,B: the only paths where document bytes<br/>leave the machine — metered as egressBytes
     end
     Agent->>Det: extraction → code matching → anomaly checks
     Det-->>Agent: resolved record + flags
@@ -64,13 +62,14 @@ sequenceDiagram
 
 The model is used for the *perception* step only — messy text to structured fields. Code matching and anomaly detection are deterministic TypeScript: the model proposes, the code disposes. That split is the architecture (a lesson carried over from [Helm](https://github.com/Builder106/Helm)'s payout-reconciler finding, where an LLM that read invoices at 91.9% dropped to 54% on multi-step policy math).
 
-## The three-provider design
+## The four-provider design
 
 | Provider | What it is | Marginal cost | Where document bytes go |
 |---|---|---|---|
 | `rules` | Deterministic regex/heuristic parser — the no-ML floor | $0 | Nowhere. In-process. |
 | `local` | Open-weights model via Ollama (`qwen2.5:3b-instruct` default) | $0 | `localhost:11434`. Never off-machine. |
-| `bedrock` | Claude on AWS Bedrock — the hosted ceiling | per-token (metered) | AWS. Counted byte-for-byte as `egressBytes`. |
+| `groq` | Same open-weights family at datacenter scale (`llama-3.3-70b-versatile`) | $0 on free tier (list price metered) | Groq. Counted byte-for-byte as `egressBytes`. |
+| `bedrock` | Claude on AWS Bedrock — the hosted frontier ceiling | per-token (metered) | AWS. Counted byte-for-byte as `egressBytes`. |
 
 Same agent loop, same eval split, same metrics — the provider is a one-line swap through the AI SDK. The comparison the dashboard renders is the product: *is a 3B model running where the PHI lives good enough to skip the cloud?*
 
@@ -90,7 +89,7 @@ pnpm dev                             # dashboard at localhost:3000
 pnpm test                            # vitest suite
 ```
 
-For the local model path install [Ollama](https://ollama.com), then `ollama pull qwen2.5:3b-instruct` and `pnpm measure --provider local`. For Bedrock, set the AWS env vars in `.env` (see `.env.example`) — credentials are only touched by the bedrock provider.
+For the local model path install [Ollama](https://ollama.com), then `ollama pull qwen2.5:3b-instruct` and `pnpm measure --provider local`. For Groq, set `GROQ_API_KEY` in `.env` (free tier covers the eval volume). For Bedrock, set the AWS env vars in `.env` (see `.env.example`) — each hosted credential is only touched by its own provider.
 
 ## Project structure
 
@@ -112,7 +111,7 @@ Enclave is the AI-layer sequel to [MedCore](https://github.com/Builder106/MedCor
 
 ## Roadmap
 
-- **Trials 02/03** — run the local and Bedrock measurements; publish all three columns.
+- **Trials 03/04** — complete the Bedrock (cron-accumulated) and Groq columns; publish all four.
 - **LoRA adaptation** — fine-tune the 3B extractor on generator output to close any parity gap with the hosted baseline.
 - **Image ingestion** — rasterized superbills through a local vision model (or docTR), replacing the text-noise proxy.
 - **Azure SQL target** — swap libSQL for Azure SQL via the Drizzle layer (schema is already dialect-conservative).
