@@ -4,6 +4,14 @@
 > things happen — retrospectives need this raw material to land.
 > Reverse-chronological; one paragraph max per entry.
 
+## 2026-06-11 — llama.cpp grammars choke on regex patterns; one bad field must not void a document #incident #decision
+
+Trial 02 first failed 50/50 with "response did not match schema": the model never saw our schema (the openai-compatible provider needs `supportsStructuredOutputs: true` to send it). With that flag, it failed differently — llama.cpp's schema→GBNF converter logged `failed to parse grammar` on our regex `pattern` fields and Ollama then generated *unconstrained*, echoing the document back. Two-part fix that's better measurement design anyway: a `LenientExtractionSchema` (no patterns/lengths) faces the model, and strict format rules moved out of the gate entirely — structural validity is grammar-enforced at generation; value errors (the 3B's empty `firstName`, a mangled MRN) are scored by the metrics as per-field misses instead of zeroing an otherwise-correct document. A grammar that enforces `MRN-\d{7}` would also have silently repaired OCR misreads for the model — removing it keeps the comparison honest. Post-fix probe: 100% parse, 97.2% field accuracy on 3 docs.
+
+## 2026-06-11 — Homebrew's ollama formula ships without its inference engine #incident
+
+The first local run errored 50/50 in ~11s/doc: `llama-server binary not found` across every path Ollama 0.30.7 (brew formula) checks. The API server ran, `ollama pull` worked — but the formula never installed the runner that actually executes models. Swapped to the official build (`brew uninstall ollama && brew install --cask ollama`); pulled weights survived in `~/.ollama/models`. The pipeline's error capture worked exactly as designed: per-doc errors landed in the `runs` table, which is where the diagnosis came from.
+
 ## 2026-06-10 — First measured run: the no-ML floor is high #milestone
 
 Trial 01 (rules baseline, 50 held-out docs, seed 1) completed end-to-end: 96.0% parse, 95.0% field accuracy, 84.0% exact match, code F1 98.3%, anomaly F1 90.0%, p95 0.44 ms, $0, 0 bytes egress. Two honest readings recorded in the README: the floor is deliberately hard for the models to clear, and the code-match number is inflated by construction — synthetic line descriptions are drawn from the same dataset the matcher searches. Typecheck, 24 unit tests, and the production build all green in the same pass.

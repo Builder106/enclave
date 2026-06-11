@@ -14,6 +14,9 @@ export function getLanguageModel(
     const ollama = createOpenAICompatible({
       name: "ollama",
       baseURL: process.env.OLLAMA_BASE_URL ?? DEFAULTS.ollamaBaseUrl,
+      // Without this the JSON schema is never sent and the model invents
+      // its own field names (Ollama supports response_format json_schema).
+      supportsStructuredOutputs: true,
     });
     return { model: ollama.chatModel(modelId), modelId };
   }

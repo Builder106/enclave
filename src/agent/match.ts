@@ -1,6 +1,5 @@
 import { CPT_CODES, ICD10_CODES, findCpt, findIcd10 } from "@/lib/codes";
 import {
-  ResolvedExtractionSchema,
   type CodeEntry,
   type Extraction,
   type ResolvedExtraction,
@@ -106,6 +105,8 @@ export function resolveCodes(extraction: Extraction): ResolvedExtraction | null 
     lines.push({ ...line, cpt });
   }
 
-  const parsed = ResolvedExtractionSchema.safeParse({ ...extraction, diagnoses, lines });
-  return parsed.success ? parsed.data : null;
+  // Structural validity is guaranteed by construction; value-format errors
+  // (e.g. an OCR-mangled short CPT) are scored by the metrics as field
+  // misses rather than voiding the document.
+  return { ...extraction, diagnoses, lines };
 }

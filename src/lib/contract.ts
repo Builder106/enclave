@@ -137,6 +137,44 @@ export const ExtractionSchema = z.object({
 });
 export type Extraction = z.infer<typeof ExtractionSchema>;
 
+/**
+ * Model-facing variant of ExtractionSchema with no regex patterns or length
+ * constraints. llama.cpp's JSON-schema→GBNF converter chokes on `pattern`
+ * (Ollama then silently generates UNCONSTRAINED — observed as the model
+ * echoing the document), and grammar-enforced formats would over-help the
+ * model anyway. Strict format checks live in code: llmExtract validates the
+ * lenient result against ExtractionSchema after normalization.
+ */
+export const LenientExtractionSchema = z.object({
+  patient: z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+    dob: z.string(),
+    mrn: z.string(),
+    phone: z.string(),
+  }),
+  encounter: z.object({
+    date: z.string(),
+    type: z.enum(ENCOUNTER_TYPES),
+    providerName: z.string(),
+    npi: z.string(),
+  }),
+  diagnoses: z.array(
+    z.object({ description: z.string(), icd10: z.string().nullable() }),
+  ),
+  lines: z.array(
+    z.object({
+      description: z.string(),
+      cpt: z.string().nullable(),
+      units: z.number().int(),
+      chargeCents: z.number().int(),
+    }),
+  ),
+  payer: z.object({ name: z.string(), memberId: z.string() }),
+  printedTotalCents: z.number().int().nullable(),
+});
+export type LenientExtraction = z.infer<typeof LenientExtractionSchema>;
+
 /** Extraction after match_codes has resolved every null code. */
 export const ResolvedExtractionSchema = ExtractionSchema.extend({
   diagnoses: z.array(DiagnosisSchema).min(1).max(6),
