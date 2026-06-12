@@ -1,48 +1,34 @@
 @import "tailwindcss";
 
-/* Enclave — "The Pathology Report"
- * The page is a clinical document report issued on-prem. A serif masthead
- * names the report and its specimen metadata (seed, docs, accession = build
- * commit); results read as a lab panel with reference ranges and H/L-style
- * flags; the privacy thesis is a chain-of-custody notice — the specimen
- * (PHI) never left the lab. Light clinical paper, ink-black text, clinical
- * green (normal / contained / best) and flag-amber (abnormal / off-site).
- * Type: IBM Plex Serif masthead, General Sans body, JetBrains Mono values. */
+/* Enclave — "The Intake Workbench"
+ * Not a report — a tool. You load a clinical specimen, pick an extractor,
+ * and run it; the document sits on the left, structured output fills in on
+ * the right, and a transmission gauge shows — live — whether the specimen's
+ * bytes stayed on-device or crossed to the cloud. Light clinical app chrome,
+ * one green accent (contained / correct), amber for egress (off-site).
+ * Type: General Sans (UI) + JetBrains Mono (document + values). */
 
 :root {
   color-scheme: light;
-
-  /* Paper surfaces */
-  --background: #eef1f4; /* clinical desk */
-  --card: #ffffff; /* report sheet */
+  --background: #e9edf2; /* app chrome */
+  --card: #ffffff; /* panels */
   --popover: #ffffff;
-
-  /* Ink scale */
-  --foreground: #161b22;
-  --card-foreground: #161b22;
-  --popover-foreground: #161b22;
-  --muted: #f2f5f8;
-  --muted-foreground: #5a6672;
+  --foreground: #141a21;
+  --card-foreground: #141a21;
+  --muted: #f1f4f8;
+  --muted-foreground: #5c6873;
   --ink-faint: #8a96a3;
 
-  /* Clinical green: within reference range / contained / best-in-column */
-  --primary: #157f52;
+  --primary: #15825a; /* contained / correct */
   --primary-foreground: #ffffff;
-
-  /* Flag amber: abnormal / specimen transmitted off-site */
-  --egress: #b45309;
+  --egress: #c2700a; /* transmitted off-site */
   --egress-foreground: #ffffff;
+  --destructive: #c0392b;
 
-  --secondary: #f2f5f8;
-  --secondary-foreground: #28323d;
-  --accent: #eef4f0;
-  --accent-foreground: #161b22;
-  --destructive: #b42318;
-  --border: #d9e0e7;
-  --input: #d9e0e7;
-  --ring: #157f52;
-
-  --radius: 0.125rem;
+  --border: #dce2e9;
+  --input: #dce2e9;
+  --ring: #15825a;
+  --radius: 0.375rem;
 }
 
 @theme inline {
@@ -50,35 +36,23 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-egress: var(--egress);
+  --color-egress-foreground: var(--egress-foreground);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-
-  /* Semantic aliases — named by clinical meaning, not hue */
-  --color-contained: var(--primary);
-  --color-egress: var(--egress);
-  --color-egress-foreground: var(--egress-foreground);
   --color-ink-faint: var(--ink-faint);
 
-  --radius-sm: var(--radius);
+  --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 2px);
-  --radius-xl: calc(var(--radius) + 4px);
 
-  /* next/font local vars (set on <html>), with graceful fallbacks */
   --font-sans: var(--font-general-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-ibm-plex-serif), Georgia, ui-serif, serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -88,57 +62,65 @@ body {
   font-family: var(--font-sans);
 }
 
-/* ── Clinical-report utilities ───────────────────────────────────────── */
-
-/* Mono ALL-CAPS eyebrow / accession label. Color set per-use. */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
-
-.serif {
-  font-family: var(--font-serif);
-}
-
 .tabular {
   font-variant-numeric: tabular-nums;
 }
 
-/* The report sheet: white paper lifted off the clinical desk, with a faint
- * top accent rule — the lab-report masthead bar. */
-.report-sheet {
-  background: var(--card);
-  box-shadow:
-    0 0 0 1px var(--border),
-    0 1px 2px rgba(22, 27, 34, 0.04),
-    0 18px 40px -28px rgba(22, 27, 34, 0.18);
+/* A data packet travelling device → cloud while a hosted provider transmits. */
+@keyframes packet {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+.packet {
+  animation: packet 0.9s linear infinite;
 }
 
-/* Faint clinical paper grain on the desk behind the sheet. */
-.bench-atmosphere {
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
-}
-
-/* Orchestrated load: each .rise lifts in sequence via --i stagger. */
-@keyframes rise {
+/* Field rows reveal as the extractor "returns" them. */
+@keyframes fieldIn {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-.rise {
-  animation: rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: calc(var(--i, 0) * 70ms);
+.field-in {
+  animation: fieldIn 0.28s ease-out both;
 }
+
+@keyframes blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+.blink {
+  animation: blink 1s step-start infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .rise {
+  .packet,
+  .field-in,
+  .blink {
     animation: none;
   }
 }

@@ -4,6 +4,10 @@
 > things happen — retrospectives need this raw material to land.
 > Reverse-chronological; one paragraph max per entry.
 
+## 2026-06-12 — Stop recoloring; rebuild as an interactive workbench #pivot
+
+Feedback, in caps and frustrated: I'd shipped four "redesigns" that were the same dashboard skeleton (header / stat band / table / bars / footer) recolored — dark instrument, containment territory, pathology report. Dead right. Deleted the entire UI (kept the engine — generator, the rules/local/groq pipeline, eval, db, contract) and rebuilt a different KIND of site: a document-first intake workbench. You load a synthetic specimen, pick an extractor, hit Run, and watch the document become a structured record field-by-field — beside a live transmission gauge that shows whether the bytes stayed on-device (green, 0 B) or crossed to the cloud (amber, counting up to the measured egress). The privacy thesis is now an interaction you feel, not a number you read. Real measured runs played back, exported per-document from the runs table (scripts/export-demo.ts) — no live inference. New structure and information architecture, not new paint. Lesson burned in: "improve the UI" had meant "restyle the same components" to me for four rounds; it should have meant rethink the experience.
+
 ## 2026-06-11 — Bedrock gate cleared; free-plan daily token quota blocks Trial 03 #incident
 
 First Bedrock invoke from the new AWS account: auth via a Bedrock API key (`AWS_BEARER_TOKEN_BEDROCK` — no manual IAM user needed; the AI SDK provider reads it natively), Anthropic use-case gate passed, model reachable — then throttled with "Too many tokens per day" before a single document completed. New/free-plan accounts carry a tiny default daily token quota for Claude models, and the modern console has no per-model "request access" button to hint at any of this. The throttled 0% row was stripped from the measurement file rather than committed — a quota error is not a measurement. Trial 03 waits on a Service Quotas increase or the daily reset; ~65k tokens needed for the 50-doc run.

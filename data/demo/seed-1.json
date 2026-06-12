@@ -1,0 +1,2654 @@
+{
+  "seed": 1,
+  "generatedAt": "2026-06-12T16:07:07.104Z",
+  "documents": [
+    {
+      "id": "DOC-00001",
+      "label": "clean",
+      "injectedAnomalies": [],
+      "text": "BrIgHT HARBOR PRIMARY CARE\n27 Quayside Lane, Floor 3\nPortland, ME 04101 | (207) 555-0119\n--------------------------------------------------\n\nSTATEMENT OF SERVICES / SUPERBIlL\n\nPATIENT\n   Name: Javier Rodriguez\n  DOB: 2004-12-26\n  MRN: MRN-9670403\n  Phone: (494) 555-9212\n\nENCOUNTER\n  Date of Service: 2026-01-l0\n  Visit Type: Preventive Visit\n  Rendering Provider: Funmilayo Bankole, DO\n  NPI: 1526948370\n\nDIAGNOSES\n  1. Unspecified asthma, uncomplicated  [J45.909]\n\nSErVICEs\n  DESCRIPTION                                   CPT      QTY      CHARGE\n  ---------------------------------------------------------------------\n   complete blood count                          85025   1        $29.46\n  new pt visit level 2                          99202   1       $106.38\n  preventive exam,  established, 18-39           99395   2       $468.38\n  injection admin                                96372   3        $90.54\n\n  TOTAL DUE: $694.76\n\nINSURAnCE / PAYER\n  Plan: Cascade Benefit Group\n  Member ID: JUD12149059\n",
+      "truth": {
+        "patient": {
+          "firstName": "Javier",
+          "lastName": "Rodriguez",
+          "dob": "2004-12-26",
+          "mrn": "MRN-9670403",
+          "phone": "(494) 555-9212"
+        },
+        "encounter": {
+          "date": "2026-01-10",
+          "type": "preventive",
+          "providerName": "Funmilayo Bankole, DO",
+          "npi": "1526948370"
+        },
+        "diagnoses": [
+          {
+            "description": "Unspecified asthma, uncomplicated",
+            "icd10": "J45.909"
+          }
+        ],
+        "lines": [
+          {
+            "description": "complete blood count",
+            "cpt": "85025",
+            "units": 1,
+            "chargeCents": 2946
+          },
+          {
+            "description": "new pt visit level 2",
+            "cpt": "99202",
+            "units": 1,
+            "chargeCents": 10638
+          },
+          {
+            "description": "preventive exam, established, 18-39",
+            "cpt": "99395",
+            "units": 2,
+            "chargeCents": 46838
+          },
+          {
+            "description": "injection admin",
+            "cpt": "96372",
+            "units": 3,
+            "chargeCents": 9054
+          }
+        ],
+        "payer": {
+          "name": "Cascade Benefit Group",
+          "memberId": "JUD12149059"
+        },
+        "printedTotalCents": 69476
+      },
+      "providers": {
+        "rules": {
+          "model": "deterministic",
+          "ok": true,
+          "error": null,
+          "egressBytes": 0,
+          "latencyMs": 2,
+          "costUsd": 0,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Javier",
+              "got": "Javier",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Rodriguez",
+              "got": "Rodriguez",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "2004-12-26",
+              "got": "2004-12-26",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-9670403",
+              "got": "MRN-9670403",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(494) 555-9212",
+              "got": "(494) 555-9212",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-01-10",
+              "got": "2026-01-10",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "preventive",
+              "got": "preventive",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Funmilayo Bankole, DO",
+              "got": "Funmilayo Bankole, DO",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1526948370",
+              "got": "1526948370",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Cascade Benefit Group",
+              "got": "Cascade Benefit Group",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "JUD12149059",
+              "got": "JUD12149059",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "694.76",
+              "got": "694.76",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Unspecified asthma, uncomplicated",
+              "icd10": "J45.909"
+            }
+          ],
+          "lines": [
+            {
+              "description": "complete blood count",
+              "cpt": "85025",
+              "units": 1,
+              "chargeCents": 2946
+            },
+            {
+              "description": "new pt visit level 2",
+              "cpt": "99202",
+              "units": 1,
+              "chargeCents": 10638
+            },
+            {
+              "description": "preventive exam, established, 18-39",
+              "cpt": "99395",
+              "units": 2,
+              "chargeCents": 46838
+            },
+            {
+              "description": "injection admin",
+              "cpt": "96372",
+              "units": 3,
+              "chargeCents": 9054
+            }
+          ],
+          "anomaliesFound": []
+        },
+        "local": {
+          "model": "qwen2.5:3b-instruct",
+          "ok": true,
+          "error": null,
+          "egressBytes": 0,
+          "latencyMs": 20499,
+          "costUsd": 0,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Javier",
+              "got": "Javier",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Rodriguez",
+              "got": "Rodriguez",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "2004-12-26",
+              "got": "2004-12-26",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-9670403",
+              "got": "MRN-9670403",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(494) 555-9212",
+              "got": "(494) 555-9212",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-01-10",
+              "got": "2026-01-10",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "preventive",
+              "got": "preventive",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Funmilayo Bankole, DO",
+              "got": "Funmilayo Bankole, DO",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1526948370",
+              "got": "1526948370",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Cascade Benefit Group",
+              "got": "Cascade Benefit Group",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "JUD12149059",
+              "got": "JUD12149059",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "694.76",
+              "got": "694.76",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "[Unspecified asthma, uncomplicated]",
+              "icd10": "J45.909"
+            }
+          ],
+          "lines": [
+            {
+              "description": "complete blood count",
+              "cpt": "85025",
+              "units": 1,
+              "chargeCents": 2946
+            },
+            {
+              "description": "new pt visit level 2",
+              "cpt": "99202",
+              "units": 1,
+              "chargeCents": 10638
+            },
+            {
+              "description": "preventive exam, established, 18-39",
+              "cpt": "99395",
+              "units": 2,
+              "chargeCents": 46838
+            },
+            {
+              "description": "injection admin",
+              "cpt": "96372",
+              "units": 3,
+              "chargeCents": 9054
+            }
+          ],
+          "anomaliesFound": []
+        },
+        "groq": {
+          "model": "openai/gpt-oss-120b",
+          "ok": true,
+          "error": null,
+          "egressBytes": 1993,
+          "latencyMs": 2483,
+          "costUsd": 0.0007113,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Javier",
+              "got": "Javier",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Rodriguez",
+              "got": "Rodriguez",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "2004-12-26",
+              "got": "2004-12-26",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-9670403",
+              "got": "MRN-9670403",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(494) 555-9212",
+              "got": "(494) 555-9212",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-01-10",
+              "got": "2026-01-10",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "preventive",
+              "got": "preventive",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Funmilayo Bankole, DO",
+              "got": "Funmilayo Bankole, DO",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1526948370",
+              "got": "1526948370",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Cascade Benefit Group",
+              "got": "Cascade Benefit Group",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "JUD12149059",
+              "got": "JUD12149059",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "694.76",
+              "got": "694.76",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Unspecified asthma, uncomplicated",
+              "icd10": "J45.909"
+            }
+          ],
+          "lines": [
+            {
+              "description": "complete blood count",
+              "cpt": "85025",
+              "units": 1,
+              "chargeCents": 2946
+            },
+            {
+              "description": "new pt visit level 2",
+              "cpt": "99202",
+              "units": 1,
+              "chargeCents": 10638
+            },
+            {
+              "description": "preventive exam, established, 18-39",
+              "cpt": "99395",
+              "units": 2,
+              "chargeCents": 46838
+            },
+            {
+              "description": "injection admin",
+              "cpt": "96372",
+              "units": 3,
+              "chargeCents": 9054
+            }
+          ],
+          "anomaliesFound": []
+        }
+      }
+    },
+    {
+      "id": "DOC-00002",
+      "label": "clean",
+      "injectedAnomalies": [],
+      "text": "==================================================\n   WILLOW CREEK COMMUNITY PRACTICE\n   934 Mill Pond Way, Suite 12\n   Decatur, GA 30030  |  (404) 555-0185\n==================================================\n\nSTATEMENT OFSERVICES / SUPERBILL\n\nPATIENT\n  Name: James Okonkwo\n  DOB: 1988-02-26\n  MRN: MRN-3249841\n  Phone: (739) 555-2128\n\nENCOUNTER\n  Date of Service: 2026-06-28\n  Visit Type: Telehealth\n  Rendering Provider: Adaeze Nwachukwu, MD\n  NPI: 1638572904\n\nDIAGNOSES\n  1. Unspecified conjunctivitis\n\nSERVICES\n  DESCRIPTION                                    QTY      CHARGE\n  -------------------------------------------------------------\n  smoking cessation counseling                  1        $22.82\n  office visit, established                     1       $170.05\n  new pt physical 18-39                         1       $249.29\n\n  TOTAL DUE: $442.16\n\nINSURANCE / PAYER\n  Plan: Pinnacle Family Health\n Member ID: ADJ74206375\n",
+      "truth": {
+        "patient": {
+          "firstName": "James",
+          "lastName": "Okonkwo",
+          "dob": "1988-02-26",
+          "mrn": "MRN-3249841",
+          "phone": "(739) 555-2128"
+        },
+        "encounter": {
+          "date": "2026-06-28",
+          "type": "telehealth",
+          "providerName": "Adaeze Nwachukwu, MD",
+          "npi": "1638572904"
+        },
+        "diagnoses": [
+          {
+            "description": "Unspecified conjunctivitis",
+            "icd10": "H10.9"
+          }
+        ],
+        "lines": [
+          {
+            "description": "smoking cessation counseling",
+            "cpt": "99406",
+            "units": 1,
+            "chargeCents": 2282
+          },
+          {
+            "description": "office visit, established",
+            "cpt": "99213",
+            "units": 1,
+            "chargeCents": 17005
+          },
+          {
+            "description": "new pt physical 18-39",
+            "cpt": "99385",
+            "units": 1,
+            "chargeCents": 24929
+          }
+        ],
+        "payer": {
+          "name": "Pinnacle Family Health",
+          "memberId": "ADJ74206375"
+        },
+        "printedTotalCents": 44216
+      },
+      "providers": {
+        "rules": {
+          "model": "deterministic",
+          "ok": true,
+          "error": null,
+          "egressBytes": 0,
+          "latencyMs": 0,
+          "costUsd": 0,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "James",
+              "got": "James",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Okonkwo",
+              "got": "Okonkwo",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1988-02-26",
+              "got": "1988-02-26",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-3249841",
+              "got": "MRN-3249841",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(739) 555-2128",
+              "got": "(739) 555-2128",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-06-28",
+              "got": "2026-06-28",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "telehealth",
+              "got": "telehealth",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Adaeze Nwachukwu, MD",
+              "got": "Adaeze Nwachukwu, MD",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1638572904",
+              "got": "1638572904",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Pinnacle Family Health",
+              "got": "Pinnacle Family Health",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "ADJ74206375",
+              "got": "ADJ74206375",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "442.16",
+              "got": "442.16",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Unspecified conjunctivitis",
+              "icd10": null
+            }
+          ],
+          "lines": [
+            {
+              "description": "smoking cessation counseling",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 2282
+            },
+            {
+              "description": "office visit, established",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 17005
+            },
+            {
+              "description": "new pt physical 18-39",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 24929
+            }
+          ],
+          "anomaliesFound": []
+        },
+        "local": {
+          "model": "qwen2.5:3b-instruct",
+          "ok": true,
+          "error": null,
+          "egressBytes": 0,
+          "latencyMs": 17129,
+          "costUsd": 0,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "James",
+              "got": "James",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Okonkwo",
+              "got": "Okonkwo",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1988-02-26",
+              "got": "1988-02-26",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-3249841",
+              "got": "MRN-3249841",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(739) 555-2128",
+              "got": "(739) 555-2128",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-06-28",
+              "got": "2026-06-28",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "telehealth",
+              "got": "telehealth",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Adaeze Nwachukwu, MD",
+              "got": "Adaeze Nwachukwu, MD",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1638572904",
+              "got": "1638572904",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Pinnacle Family Health",
+              "got": "Pinnacle Family Health",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "ADJ74206375",
+              "got": "ADJ74206375",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "442.16",
+              "got": "442.16",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "[Unspecified conjunctivitis]",
+              "icd10": null
+            }
+          ],
+          "lines": [
+            {
+              "description": "smoking cessation counseling",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 2282
+            },
+            {
+              "description": "office visit, established",
+              "cpt": "99213",
+              "units": 1,
+              "chargeCents": 17005
+            },
+            {
+              "description": "new pt physical 18-39",
+              "cpt": "97604",
+              "units": 1,
+              "chargeCents": 24929
+            }
+          ],
+          "anomaliesFound": []
+        },
+        "groq": {
+          "model": "openai/gpt-oss-120b",
+          "ok": true,
+          "error": null,
+          "egressBytes": 1916,
+          "latencyMs": 1786,
+          "costUsd": 0.0005937000000000001,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "James",
+              "got": "James",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Okonkwo",
+              "got": "Okonkwo",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1988-02-26",
+              "got": "1988-02-26",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-3249841",
+              "got": "MRN-3249841",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(739) 555-2128",
+              "got": "(739) 555-2128",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-06-28",
+              "got": "2026-06-28",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "telehealth",
+              "got": "telehealth",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Adaeze Nwachukwu, MD",
+              "got": "Adaeze Nwachukwu, MD",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1638572904",
+              "got": "1638572904",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Pinnacle Family Health",
+              "got": "Pinnacle Family Health",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "ADJ74206375",
+              "got": "ADJ74206375",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "442.16",
+              "got": "442.16",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Unspecified conjunctivitis",
+              "icd10": null
+            }
+          ],
+          "lines": [
+            {
+              "description": "smoking cessation counseling",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 2282
+            },
+            {
+              "description": "office visit, established",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 17005
+            },
+            {
+              "description": "new pt physical 18-39",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 24929
+            }
+          ],
+          "anomaliesFound": []
+        }
+      }
+    },
+    {
+      "id": "DOC-00003",
+      "label": "charge total mismatch",
+      "injectedAnomalies": [
+        "charge_total_mismatch"
+      ],
+      "text": "**************************************************\n        CEDAR GROVE MEDICAL ASSOCIATES\n   1180 Sycamore Road, Building C\n   Akron, OH 44313  |  (330) 555-0177\n**************************************************\n\nSTATEMENT OF SERVICES / SUPERBILL\n\nPATIENT\n  Name: William Eze\n  DOB: 1963-07-02\n  MRN: MRN-9199139\n  Phone: (536) 555-3023\n\nENCOUNTER\n  Date of Service: 2026-05-12\n  Visit Type: Urgent Care\n  Rendering Provider: Steven Krauss, MD\n  NPI: 1964031827\n\nDIAGNOSES\n  1. strep throat  [J02.0]\n  2. major depression  [F32.9]\n\nsERViCES\n  DESCRIPTION                                    CPT     QTY      CHARGE\n  ---------------------------------------------------------------------\n  dipstick urinalysis                           81002   1        $12.16\n  lac repair 2.5 cm or less                     12001   1       $262.53\n\n  TOTAL DUE: $12.16\n\nINSURANCE / PAYER\n  Plan: Granite Peak Mutual\n  Member ID: YKP10615403\n",
+      "truth": {
+        "patient": {
+          "firstName": "William",
+          "lastName": "Eze",
+          "dob": "1963-07-02",
+          "mrn": "MRN-9199139",
+          "phone": "(536) 555-3023"
+        },
+        "encounter": {
+          "date": "2026-05-12",
+          "type": "urgent_care",
+          "providerName": "Steven Krauss, MD",
+          "npi": "1964031827"
+        },
+        "diagnoses": [
+          {
+            "description": "strep throat",
+            "icd10": "J02.0"
+          },
+          {
+            "description": "major depression",
+            "icd10": "F32.9"
+          }
+        ],
+        "lines": [
+          {
+            "description": "dipstick urinalysis",
+            "cpt": "81002",
+            "units": 1,
+            "chargeCents": 1216
+          },
+          {
+            "description": "lac repair 2.5 cm or less",
+            "cpt": "12001",
+            "units": 1,
+            "chargeCents": 26253
+          }
+        ],
+        "payer": {
+          "name": "Granite Peak Mutual",
+          "memberId": "YKP10615403"
+        },
+        "printedTotalCents": 1216
+      },
+      "providers": {
+        "rules": {
+          "model": "deterministic",
+          "ok": true,
+          "error": null,
+          "egressBytes": 0,
+          "latencyMs": 0,
+          "costUsd": 0,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "William",
+              "got": "William",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Eze",
+              "got": "Eze",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1963-07-02",
+              "got": "1963-07-02",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-9199139",
+              "got": "MRN-9199139",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(536) 555-3023",
+              "got": "(536) 555-3023",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-05-12",
+              "got": "2026-05-12",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "urgent_care",
+              "got": "urgent_care",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Steven Krauss, MD",
+              "got": "Steven Krauss, MD",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1964031827",
+              "got": "1964031827",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Granite Peak Mutual",
+              "got": "Granite Peak Mutual",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "YKP10615403",
+              "got": "YKP10615403",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "12.16",
+              "got": "12.16",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "strep throat",
+              "icd10": "J02.0"
+            },
+            {
+              "description": "major depression",
+              "icd10": "F32.9"
+            }
+          ],
+          "lines": [
+            {
+              "description": "dipstick urinalysis",
+              "cpt": "81002",
+              "units": 1,
+              "chargeCents": 1216
+            },
+            {
+              "description": "lac repair 2.5 cm or less",
+              "cpt": "12001",
+              "units": 1,
+              "chargeCents": 26253
+            }
+          ],
+          "anomaliesFound": [
+            "charge_total_mismatch"
+          ]
+        },
+        "local": {
+          "model": "qwen2.5:3b-instruct",
+          "ok": true,
+          "error": null,
+          "egressBytes": 0,
+          "latencyMs": 16621,
+          "costUsd": 0,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "William",
+              "got": "William",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Eze",
+              "got": "Eze",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1963-07-02",
+              "got": "1963-07-02",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-9199139",
+              "got": "MRN-9199139",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(536) 555-3023",
+              "got": "(536) 555-3023",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-05-12",
+              "got": "2026-05-12",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "urgent_care",
+              "got": "urgent_care",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Steven Krauss, MD",
+              "got": "Steven Krauss, MD",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1964031827",
+              "got": "1964031827",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Granite Peak Mutual",
+              "got": "Granite Peak Mutual",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "YKP10615403",
+              "got": "YKP10615403",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "12.16",
+              "got": "121.60",
+              "ok": false
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "strep throat",
+              "icd10": "J02.0"
+            },
+            {
+              "description": "major depression",
+              "icd10": "F32.9"
+            }
+          ],
+          "lines": [
+            {
+              "description": "dipstick urinalysis",
+              "cpt": "81002",
+              "units": 1,
+              "chargeCents": 1216
+            },
+            {
+              "description": "lac repair 2.5 cm or less",
+              "cpt": "12001",
+              "units": 1,
+              "chargeCents": 26253
+            }
+          ],
+          "anomaliesFound": [
+            "charge_total_mismatch"
+          ]
+        },
+        "groq": {
+          "model": "openai/gpt-oss-120b",
+          "ok": true,
+          "error": null,
+          "egressBytes": 1909,
+          "latencyMs": 1855,
+          "costUsd": 0.0006603,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "William",
+              "got": "William",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Eze",
+              "got": "Eze",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1963-07-02",
+              "got": "1963-07-02",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-9199139",
+              "got": "MRN-9199139",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(536) 555-3023",
+              "got": "(536) 555-3023",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-05-12",
+              "got": "2026-05-12",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "urgent_care",
+              "got": "urgent_care",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Steven Krauss, MD",
+              "got": "Steven Krauss, MD",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1964031827",
+              "got": "1964031827",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Granite Peak Mutual",
+              "got": "Granite Peak Mutual",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "YKP10615403",
+              "got": "YKP10615403",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "12.16",
+              "got": "12.16",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "strep throat",
+              "icd10": "J02.0"
+            },
+            {
+              "description": "major depression",
+              "icd10": "F32.9"
+            }
+          ],
+          "lines": [
+            {
+              "description": "dipstick urinalysis",
+              "cpt": "81002",
+              "units": 1,
+              "chargeCents": 1216
+            },
+            {
+              "description": "lac repair 2.5 cm or less",
+              "cpt": "12001",
+              "units": 1,
+              "chargeCents": 26253
+            }
+          ],
+          "anomaliesFound": [
+            "charge_total_mismatch"
+          ]
+        }
+      }
+    },
+    {
+      "id": "DOC-00004",
+      "label": "unit charge outlier",
+      "injectedAnomalies": [
+        "unit_charge_outlier"
+      ],
+      "text": "**************************************************\n        CEDAR GROVE MEDICAL ASSOCIATES\n   1180 Sycamore Road, Building C\n   Akron, OH 44313  |  (330) 555-0177\n**************************************************\n\nSTATEMENT OF  SERVICES / SUPERBILL\n\nPATIENT\n  Name: Joshua Martinez\n  DOB: 1973-03-06\n  MRN: MRN-2599418\n  Phone: (901) 555-4332\n\nENCOUNTER\n  Date of Service: 2026-06-06\n  Visit Type: Telehealth\n  Rendering Provider: Olufemi Adesanya, MD\n  NPI: 1740283915\n\nDIaGNOSES\n  1. Nauseawith vomiting, unspecified  [R1l.2]\n  2. pyrexia  [R50.9]\n  3. sore throat  [J02.9]\n\nSERVICES\n  DESCRIPTION                                    CPT     QTY      CHARGE\n  ---------------------------------------------------------------------\n  PFT, simple                                   94010   1     $1,202.17\n  office visit, new patient, level 5             99205   2       $544.74\n  pneumonia vaccine                             90732   1       $107.89\n  est pt visit level 4                         99214   1       $223.28\n\n  T0TAL DUE: $2,078.08\n\nINSURANCE / PAYER\n  Plan: Northwind Health Partners\n  Member ID: FTA38023603\n",
+      "truth": {
+        "patient": {
+          "firstName": "Joshua",
+          "lastName": "Martinez",
+          "dob": "1973-03-06",
+          "mrn": "MRN-2599418",
+          "phone": "(901) 555-4332"
+        },
+        "encounter": {
+          "date": "2026-06-06",
+          "type": "telehealth",
+          "providerName": "Olufemi Adesanya, MD",
+          "npi": "1740283915"
+        },
+        "diagnoses": [
+          {
+            "description": "Nausea with vomiting, unspecified",
+            "icd10": "R11.2"
+          },
+          {
+            "description": "pyrexia",
+            "icd10": "R50.9"
+          },
+          {
+            "description": "sore throat",
+            "icd10": "J02.9"
+          }
+        ],
+        "lines": [
+          {
+            "description": "PFT, simple",
+            "cpt": "94010",
+            "units": 1,
+            "chargeCents": 120217
+          },
+          {
+            "description": "office visit, new patient, level 5",
+            "cpt": "99205",
+            "units": 2,
+            "chargeCents": 54474
+          },
+          {
+            "description": "pneumonia vaccine",
+            "cpt": "90732",
+            "units": 1,
+            "chargeCents": 10789
+          },
+          {
+            "description": "est pt visit level 4",
+            "cpt": "99214",
+            "units": 1,
+            "chargeCents": 22328
+          }
+        ],
+        "payer": {
+          "name": "Northwind Health Partners",
+          "memberId": "FTA38023603"
+        },
+        "printedTotalCents": 207808
+      },
+      "providers": {
+        "rules": {
+          "model": "deterministic",
+          "ok": true,
+          "error": null,
+          "egressBytes": 0,
+          "latencyMs": 0,
+          "costUsd": 0,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Joshua",
+              "got": "Joshua",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Martinez",
+              "got": "Martinez",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1973-03-06",
+              "got": "1973-03-06",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-2599418",
+              "got": "MRN-2599418",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(901) 555-4332",
+              "got": "(901) 555-4332",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-06-06",
+              "got": "2026-06-06",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "telehealth",
+              "got": "telehealth",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Olufemi Adesanya, MD",
+              "got": "Olufemi Adesanya, MD",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1740283915",
+              "got": "1740283915",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Northwind Health Partners",
+              "got": "Northwind Health Partners",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "FTA38023603",
+              "got": "FTA38023603",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "2078.08",
+              "got": "2078.08",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Nauseawith vomiting, unspecified",
+              "icd10": "R1l.2"
+            },
+            {
+              "description": "pyrexia",
+              "icd10": "R50.9"
+            },
+            {
+              "description": "sore throat",
+              "icd10": "J02.9"
+            }
+          ],
+          "lines": [
+            {
+              "description": "PFT, simple",
+              "cpt": "94010",
+              "units": 1,
+              "chargeCents": 120217
+            },
+            {
+              "description": "office visit, new patient, level 5",
+              "cpt": "99205",
+              "units": 2,
+              "chargeCents": 54474
+            },
+            {
+              "description": "pneumonia vaccine",
+              "cpt": "90732",
+              "units": 1,
+              "chargeCents": 10789
+            },
+            {
+              "description": "est pt visit level 4",
+              "cpt": "99214",
+              "units": 1,
+              "chargeCents": 22328
+            }
+          ],
+          "anomaliesFound": [
+            "unit_charge_outlier"
+          ]
+        },
+        "local": {
+          "model": "qwen2.5:3b-instruct",
+          "ok": true,
+          "error": null,
+          "egressBytes": 0,
+          "latencyMs": 25318,
+          "costUsd": 0,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Joshua",
+              "got": "Joshua",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Martinez",
+              "got": "Martinez",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1973-03-06",
+              "got": "1973-03-06",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-2599418",
+              "got": "MRN-2599418",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(901) 555-4332",
+              "got": "(901) 555-4332",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-06-06",
+              "got": "2026-06-06",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "telehealth",
+              "got": "telehealth",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Olufemi Adesanya, MD",
+              "got": "Olufemi Adesanya, MD",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1740283915",
+              "got": "1740283915",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Northwind Health Partners",
+              "got": "Northwind Health Partners",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "FTA38023603",
+              "got": "FTA38023603",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "2078.08",
+              "got": "2078.08",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Nauseawith vomiting, unspecified",
+              "icd10": "R11.2"
+            },
+            {
+              "description": "pyrexia",
+              "icd10": "R50.9"
+            },
+            {
+              "description": "sore throat",
+              "icd10": "J02.9"
+            }
+          ],
+          "lines": [
+            {
+              "description": "PFT, simple",
+              "cpt": "94010",
+              "units": 1,
+              "chargeCents": 120217
+            },
+            {
+              "description": "office visit, new patient, level 5",
+              "cpt": "99205",
+              "units": 2,
+              "chargeCents": 54474
+            },
+            {
+              "description": "pneumonia vaccine",
+              "cpt": "90732",
+              "units": 1,
+              "chargeCents": 10789
+            },
+            {
+              "description": "est pt visit level 4",
+              "cpt": "99214",
+              "units": 1,
+              "chargeCents": 22328
+            }
+          ],
+          "anomaliesFound": [
+            "unit_charge_outlier"
+          ]
+        },
+        "groq": {
+          "model": "openai/gpt-oss-120b",
+          "ok": true,
+          "error": null,
+          "egressBytes": 2106,
+          "latencyMs": 2662,
+          "costUsd": 0.00090975,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Joshua",
+              "got": "Joshua",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Martinez",
+              "got": "Martinez",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1973-03-06",
+              "got": "1973-03-06",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-2599418",
+              "got": "MRN-2599418",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(901) 555-4332",
+              "got": "(901) 555-4332",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-06-06",
+              "got": "2026-06-06",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "telehealth",
+              "got": "telehealth",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Olufemi Adesanya, MD",
+              "got": "Olufemi Adesanya, MD",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1740283915",
+              "got": "1740283915",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Northwind Health Partners",
+              "got": "Northwind Health Partners",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "FTA38023603",
+              "got": "FTA38023603",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "2078.08",
+              "got": "2078.08",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Nauseawith vomiting, unspecified",
+              "icd10": "R1L.2"
+            },
+            {
+              "description": "pyrexia",
+              "icd10": "R50.9"
+            },
+            {
+              "description": "sore throat",
+              "icd10": "J02.9"
+            }
+          ],
+          "lines": [
+            {
+              "description": "PFT, simple",
+              "cpt": "94010",
+              "units": 1,
+              "chargeCents": 120217
+            },
+            {
+              "description": "office visit, new patient, level 5",
+              "cpt": "99205",
+              "units": 2,
+              "chargeCents": 54474
+            },
+            {
+              "description": "pneumonia vaccine",
+              "cpt": "90732",
+              "units": 1,
+              "chargeCents": 10789
+            },
+            {
+              "description": "est pt visit level 4",
+              "cpt": "99214",
+              "units": 1,
+              "chargeCents": 22328
+            }
+          ],
+          "anomaliesFound": [
+            "unit_charge_outlier"
+          ]
+        }
+      }
+    },
+    {
+      "id": "DOC-00005",
+      "label": "clean",
+      "injectedAnomalies": [],
+      "text": "--------------------------------------------------\n      SAGUARO VALLEY HEALTH CLINIC\n   5502 0cotillo Drive\n   Tucson, AZ 85712  |  (520) 555-0163\n--------------------------------------------------\n\nSTATEMENT OF SERvICES /  SUPERBILL\n\nPATIENT\n  Name: Gabriela Smith\n  DOB: 2014-11-13\n  MRN: MRN-2676468\n  Phone: (248) 555-4385\n\neNCOUnTER\n   Date of Service: 2026-05-lS\n  Visit Type: Office Visit\n  Rendering Provider: Daniela Roca, DO\n  NPI: 2086153749\n\nDIAGnOSES\n  1. Nausea with vomiting, unspecified  [R11.2]\n\nsERvICES\n  DESCRIPTION                                  CPT     QTY      CHARGE\n  ---------------------------------------------------------------------\n  wart destruction                              17110   1      $164.87\n  Immunization administration, each additional vaccine90472   2         $30.84\n  strep test                                    87880    1         $30.10\n\n  TOTAL DUE: $225.81\n\nINSURANCE / PAYER\n  Plan: Solstice Care Network\n  Member ID: ATP96674814\n",
+      "truth": {
+        "patient": {
+          "firstName": "Gabriela",
+          "lastName": "Smith",
+          "dob": "2014-11-13",
+          "mrn": "MRN-2676468",
+          "phone": "(248) 555-4385"
+        },
+        "encounter": {
+          "date": "2026-05-15",
+          "type": "office_visit",
+          "providerName": "Daniela Roca, DO",
+          "npi": "2086153749"
+        },
+        "diagnoses": [
+          {
+            "description": "Nausea with vomiting, unspecified",
+            "icd10": "R11.2"
+          }
+        ],
+        "lines": [
+          {
+            "description": "wart destruction",
+            "cpt": "17110",
+            "units": 1,
+            "chargeCents": 16487
+          },
+          {
+            "description": "Immunization administration, each additional vaccine",
+            "cpt": "90472",
+            "units": 2,
+            "chargeCents": 3084
+          },
+          {
+            "description": "strep test",
+            "cpt": "87880",
+            "units": 1,
+            "chargeCents": 3010
+          }
+        ],
+        "payer": {
+          "name": "Solstice Care Network",
+          "memberId": "ATP96674814"
+        },
+        "printedTotalCents": 22581
+      },
+      "providers": {
+        "rules": {
+          "model": "deterministic",
+          "ok": true,
+          "error": null,
+          "egressBytes": 0,
+          "latencyMs": 0,
+          "costUsd": 0,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Gabriela",
+              "got": "Gabriela",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Smith",
+              "got": "Smith",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "2014-11-13",
+              "got": "2014-11-13",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-2676468",
+              "got": "MRN-2676468",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(248) 555-4385",
+              "got": "(248) 555-4385",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-05-15",
+              "got": "2026-05-15",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "office_visit",
+              "got": "office_visit",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Daniela Roca, DO",
+              "got": "Daniela Roca, DO",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "2086153749",
+              "got": "2086153749",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Solstice Care Network",
+              "got": "Solstice Care Network",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "ATP96674814",
+              "got": "ATP96674814",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "225.81",
+              "got": "225.81",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Nausea with vomiting, unspecified",
+              "icd10": "R11.2"
+            }
+          ],
+          "lines": [
+            {
+              "description": "wart destruction",
+              "cpt": "17110",
+              "units": 1,
+              "chargeCents": 16487
+            },
+            {
+              "description": "Immunization administration, each additional vaccine",
+              "cpt": "90472",
+              "units": 2,
+              "chargeCents": 3084
+            },
+            {
+              "description": "strep test",
+              "cpt": "87880",
+              "units": 1,
+              "chargeCents": 3010
+            }
+          ],
+          "anomaliesFound": []
+        },
+        "local": {
+          "model": "qwen2.5:3b-instruct",
+          "ok": true,
+          "error": null,
+          "egressBytes": 0,
+          "latencyMs": 21743,
+          "costUsd": 0,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Gabriela",
+              "got": "Gabriela",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Smith",
+              "got": "Smith",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "2014-11-13",
+              "got": "2014-11-13",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-2676468",
+              "got": "MRN-2676468",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(248) 555-4385",
+              "got": "(248) 555-4385",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-05-15",
+              "got": "2026-05-18",
+              "ok": false
+            },
+            {
+              "label": "Visit type",
+              "expected": "office_visit",
+              "got": "office_visit",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Daniela Roca, DO",
+              "got": "Daniela Roca, DO",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "2086153749",
+              "got": "2086153749",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Solstice Care Network",
+              "got": "Solstice Care Network",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "ATP96674814",
+              "got": "ATP96674814",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "225.81",
+              "got": "225.81",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Nausea with vomiting, unspecified",
+              "icd10": "R11.2"
+            }
+          ],
+          "lines": [
+            {
+              "description": "wart destruction",
+              "cpt": "17110",
+              "units": 1,
+              "chargeCents": 16487
+            },
+            {
+              "description": "Immunization administration, each additional vaccine90472",
+              "cpt": "90472",
+              "units": 2,
+              "chargeCents": 3084
+            },
+            {
+              "description": "strep test",
+              "cpt": "87880",
+              "units": 1,
+              "chargeCents": 3010
+            }
+          ],
+          "anomaliesFound": []
+        },
+        "groq": {
+          "model": "openai/gpt-oss-120b",
+          "ok": true,
+          "error": null,
+          "egressBytes": 1971,
+          "latencyMs": 3249,
+          "costUsd": 0.0009563999999999999,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Gabriela",
+              "got": "Gabriela",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Smith",
+              "got": "Smith",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "2014-11-13",
+              "got": "2014-11-13",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-2676468",
+              "got": "MRN-2676468",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(248) 555-4385",
+              "got": "(248) 555-4385",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-05-15",
+              "got": "2026-05-15",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "office_visit",
+              "got": "office_visit",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Daniela Roca, DO",
+              "got": "Daniela Roca, DO",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "2086153749",
+              "got": "2086153749",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Solstice Care Network",
+              "got": "Solstice Care Network",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "ATP96674814",
+              "got": "ATP96674814",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "225.81",
+              "got": "225.81",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Nausea with vomiting, unspecified",
+              "icd10": "R11.2"
+            }
+          ],
+          "lines": [
+            {
+              "description": "wart destruction",
+              "cpt": "17110",
+              "units": 1,
+              "chargeCents": 16487
+            },
+            {
+              "description": "Immunization administration, each additional vaccine",
+              "cpt": "90472",
+              "units": 2,
+              "chargeCents": 3084
+            },
+            {
+              "description": "strep test",
+              "cpt": "87880",
+              "units": 1,
+              "chargeCents": 3010
+            }
+          ],
+          "anomaliesFound": []
+        }
+      }
+    },
+    {
+      "id": "DOC-00013",
+      "label": "duplicate line",
+      "injectedAnomalies": [
+        "duplicate_line"
+      ],
+      "text": "==================================================\n          LAKESIDE FAMILY MEDICINE\n   412 Harborview Avenue, Suite 200\n   Norfolk,VA 23S10  |  (757) 555-0142\n==================================================\n\nSTATEMENt OF SERVICES / SUPERBILL\n\nPATIENt\n  Name: Mary Obi\n  DOB:  1970-02-07\n  MRN: MRN-3320093\n  Phone:  (715) 555-4206\n\nENCOUNTER\n  Date of  Service: 2026-05-15\n  VisitType: Office Visit\n   Rendering Provider: Marcus Delgado, DO\n  NPI: 1487026531\n\nDIAGN0SEs\n  1. Age-related osteoporosis without current pathological fracture\n\nSERVICES\n  DESCRIPTION                                  QTY      CHARGE\n  -------------------------------------------------------------\n  Pneumovax                                    1       $101.84\n  Periodic preventive medicine reevaluation, established patient, 18-39 years1        $164.80\n  Periodic preventive medicine reevaluation, established patient,  18-39 years1       $164.80\n\n  TOTAL DUE: $431.44\n\nINSURANCE / PAYeR\n  Plan: Pinnacle Family Health\n  Member ID: EQP64272203\n",
+      "truth": {
+        "patient": {
+          "firstName": "Mary",
+          "lastName": "Obi",
+          "dob": "1970-02-07",
+          "mrn": "MRN-3320093",
+          "phone": "(715) 555-4206"
+        },
+        "encounter": {
+          "date": "2026-05-15",
+          "type": "office_visit",
+          "providerName": "Marcus Delgado, DO",
+          "npi": "1487026531"
+        },
+        "diagnoses": [
+          {
+            "description": "Age-related osteoporosis without current pathological fracture",
+            "icd10": "M81.0"
+          }
+        ],
+        "lines": [
+          {
+            "description": "Pneumovax",
+            "cpt": "90732",
+            "units": 1,
+            "chargeCents": 10184
+          },
+          {
+            "description": "Periodic preventive medicine reevaluation, established patient, 18-39 years",
+            "cpt": "99395",
+            "units": 1,
+            "chargeCents": 16480
+          },
+          {
+            "description": "Periodic preventive medicine reevaluation, established patient, 18-39 years",
+            "cpt": "99395",
+            "units": 1,
+            "chargeCents": 16480
+          }
+        ],
+        "payer": {
+          "name": "Pinnacle Family Health",
+          "memberId": "EQP64272203"
+        },
+        "printedTotalCents": 43144
+      },
+      "providers": {
+        "rules": {
+          "model": "deterministic",
+          "ok": true,
+          "error": null,
+          "egressBytes": 0,
+          "latencyMs": 0,
+          "costUsd": 0,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Mary",
+              "got": "Mary",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Obi",
+              "got": "Obi",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1970-02-07",
+              "got": "1970-02-07",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-3320093",
+              "got": "MRN-3320093",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(715) 555-4206",
+              "got": "(715) 555-4206",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-05-15",
+              "got": "2026-05-15",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "office_visit",
+              "got": "office_visit",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Marcus Delgado, DO",
+              "got": "Marcus Delgado, DO",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1487026531",
+              "got": "1487026531",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Pinnacle Family Health",
+              "got": "Pinnacle Family Health",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "EQP64272203",
+              "got": "EQP64272203",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "431.44",
+              "got": "431.44",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Age-related osteoporosis without current pathological fracture",
+              "icd10": null
+            }
+          ],
+          "lines": [
+            {
+              "description": "Pneumovax",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 10184
+            },
+            {
+              "description": "Periodic preventive medicine reevaluation, established patient, 18-39 years",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 16480
+            },
+            {
+              "description": "Periodic preventive medicine reevaluation, established patient, 18-39 years",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 16480
+            }
+          ],
+          "anomaliesFound": [
+            "duplicate_line"
+          ]
+        },
+        "local": {
+          "model": "qwen2.5:3b-instruct",
+          "ok": true,
+          "error": null,
+          "egressBytes": 0,
+          "latencyMs": 19073,
+          "costUsd": 0,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Mary",
+              "got": "Mary",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Obi",
+              "got": "Obi",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1970-02-07",
+              "got": "1970-02-07",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-3320093",
+              "got": "MRN-3320093",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(715) 555-4206",
+              "got": "(715) 555-4206",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-05-15",
+              "got": "2026-05-15",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "office_visit",
+              "got": "office_visit",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Marcus Delgado, DO",
+              "got": "Marcus Delgado, DO",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1487026531",
+              "got": "1487026531",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Pinnacle Family Health",
+              "got": "Pinnacle Family Health",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "EQP64272203",
+              "got": "EQP64272203",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "431.44",
+              "got": "431.44",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Age-related osteoporosis without current pathological fracture",
+              "icd10": "K27.9"
+            }
+          ],
+          "lines": [
+            {
+              "description": "Pneumovax",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 10184
+            },
+            {
+              "description": "Periodic preventive medicine reevaluation, established patient, 18-39 years1",
+              "cpt": null,
+              "units": 2,
+              "chargeCents": 3296
+            }
+          ],
+          "anomaliesFound": [
+            "charge_total_mismatch"
+          ]
+        },
+        "groq": {
+          "model": "openai/gpt-oss-120b",
+          "ok": true,
+          "error": null,
+          "egressBytes": 2013,
+          "latencyMs": 10267,
+          "costUsd": 0.0006754500000000001,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Mary",
+              "got": "Mary",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Obi",
+              "got": "Obi",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1970-02-07",
+              "got": "1970-02-07",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-3320093",
+              "got": "MRN-3320093",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(715) 555-4206",
+              "got": "(715) 555-4206",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-05-15",
+              "got": "2026-05-15",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "office_visit",
+              "got": "office_visit",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Marcus Delgado, DO",
+              "got": "Marcus Delgado, DO",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1487026531",
+              "got": "1487026531",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Pinnacle Family Health",
+              "got": "Pinnacle Family Health",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "EQP64272203",
+              "got": "EQP64272203",
+              "ok": true
+            },
+            {
+              "label": "Total",
+              "expected": "431.44",
+              "got": "431.44",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Age-related osteoporosis without current pathological fracture",
+              "icd10": null
+            }
+          ],
+          "lines": [
+            {
+              "description": "Pneumovax",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 10184
+            },
+            {
+              "description": "Periodic preventive medicine reevaluation, established patient, 18-39 years1",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 16480
+            },
+            {
+              "description": "Periodic preventive medicine reevaluation, established patient, 18-39 years1",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 16480
+            }
+          ],
+          "anomaliesFound": [
+            "duplicate_line"
+          ]
+        }
+      }
+    },
+    {
+      "id": "DOC-00015",
+      "label": "missing field",
+      "injectedAnomalies": [
+        "missing_field"
+      ],
+      "text": "--------------------------------------------------\n      SAGUARo VALLEY HEALTH CLINIc\n   5502 Ocotillo Drive\n   Tucson, AZ 85712  |  (520) 555-0163\n--------------------------------------------------\n\nSTATEMENT OF SERVICES / SUPERBILL\n\nPaTIENT\n  Name: Ngozi Ramirez\n  DOB: 1993-09-04\n  MRN: MRN-7272379\n  Phone: (289) 555-9598\n\neNCOUnTER\n  Date ofService: 2026-01-23\n  Visit Type: Preventive Visit\n  Rendering Provider: Marcus Delgado, DO\n  NPI: 1487026531\n\nDIAGNoSES\n  1. Anemia, unspecified\n\nSERVICES\n  DESCRIPTION                                   QTY      CHARGE\n  -------------------------------------------------------------\n  immunization admin, each addl                 1        $21.12\n  chest x-ray                                   3       $308.31\n\n  TOTAL DUE: $329.43\n\nINSURaNCE / PAYER\n  Plan: Meridian Health Plan\n",
+      "truth": {
+        "patient": {
+          "firstName": "Ngozi",
+          "lastName": "Ramirez",
+          "dob": "1993-09-04",
+          "mrn": "MRN-7272379",
+          "phone": "(289) 555-9598"
+        },
+        "encounter": {
+          "date": "2026-01-23",
+          "type": "preventive",
+          "providerName": "Marcus Delgado, DO",
+          "npi": "1487026531"
+        },
+        "diagnoses": [
+          {
+            "description": "Anemia, unspecified",
+            "icd10": "D64.9"
+          }
+        ],
+        "lines": [
+          {
+            "description": "immunization admin, each addl",
+            "cpt": "90472",
+            "units": 1,
+            "chargeCents": 2112
+          },
+          {
+            "description": "chest x-ray",
+            "cpt": "71046",
+            "units": 3,
+            "chargeCents": 30831
+          }
+        ],
+        "payer": {
+          "name": "Meridian Health Plan",
+          "memberId": "RJQ89423396"
+        },
+        "printedTotalCents": 32943
+      },
+      "providers": {
+        "rules": {
+          "model": "deterministic",
+          "ok": false,
+          "error": "unrecoverable document structure",
+          "egressBytes": 0,
+          "latencyMs": 1,
+          "costUsd": 0,
+          "fields": [],
+          "diagnoses": [],
+          "lines": [],
+          "anomaliesFound": []
+        },
+        "local": {
+          "model": "qwen2.5:3b-instruct",
+          "ok": true,
+          "error": null,
+          "egressBytes": 0,
+          "latencyMs": 27781,
+          "costUsd": 0,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Ngozi",
+              "got": "Ngozi",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Ramirez",
+              "got": "Ramirez",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1993-09-04",
+              "got": "1993-09-04",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-7272379",
+              "got": "MRN-7272379",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(289) 555-9598",
+              "got": "(289) 555-9598",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-01-23",
+              "got": "2026-01-23",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "preventive",
+              "got": "preventive",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Marcus Delgado, DO",
+              "got": "Marcus Delgado, DO",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1487026531",
+              "got": "1487026531",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Meridian Health Plan",
+              "got": "Meridian Health Plan",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "RJQ89423396",
+              "got": "",
+              "ok": false
+            },
+            {
+              "label": "Total",
+              "expected": "329.43",
+              "got": "329.43",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Anemia, unspecified",
+              "icd10": "E9699"
+            }
+          ],
+          "lines": [
+            {
+              "description": "immunization admin, each addl",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 2112
+            },
+            {
+              "description": "chest x-ray",
+              "cpt": null,
+              "units": 3,
+              "chargeCents": 30831
+            }
+          ],
+          "anomaliesFound": [
+            "missing_field"
+          ]
+        },
+        "groq": {
+          "model": "openai/gpt-oss-120b",
+          "ok": true,
+          "error": null,
+          "egressBytes": 1813,
+          "latencyMs": 9848,
+          "costUsd": 0.00062865,
+          "fields": [
+            {
+              "label": "First name",
+              "expected": "Ngozi",
+              "got": "Ngozi",
+              "ok": true
+            },
+            {
+              "label": "Last name",
+              "expected": "Ramirez",
+              "got": "Ramirez",
+              "ok": true
+            },
+            {
+              "label": "DOB",
+              "expected": "1993-09-04",
+              "got": "1993-09-04",
+              "ok": true
+            },
+            {
+              "label": "MRN",
+              "expected": "MRN-7272379",
+              "got": "MRN-7272379",
+              "ok": true
+            },
+            {
+              "label": "Phone",
+              "expected": "(289) 555-9598",
+              "got": "(289) 555-9598",
+              "ok": true
+            },
+            {
+              "label": "Date of service",
+              "expected": "2026-01-23",
+              "got": "2026-01-23",
+              "ok": true
+            },
+            {
+              "label": "Visit type",
+              "expected": "preventive",
+              "got": "preventive",
+              "ok": true
+            },
+            {
+              "label": "Provider",
+              "expected": "Marcus Delgado, DO",
+              "got": "Marcus Delgado, DO",
+              "ok": true
+            },
+            {
+              "label": "NPI",
+              "expected": "1487026531",
+              "got": "1487026531",
+              "ok": true
+            },
+            {
+              "label": "Payer",
+              "expected": "Meridian Health Plan",
+              "got": "Meridian Health Plan",
+              "ok": true
+            },
+            {
+              "label": "Member ID",
+              "expected": "RJQ89423396",
+              "got": "",
+              "ok": false
+            },
+            {
+              "label": "Total",
+              "expected": "329.43",
+              "got": "329.43",
+              "ok": true
+            }
+          ],
+          "diagnoses": [
+            {
+              "description": "Anemia, unspecified",
+              "icd10": null
+            }
+          ],
+          "lines": [
+            {
+              "description": "immunization admin, each addl",
+              "cpt": null,
+              "units": 1,
+              "chargeCents": 2112
+            },
+            {
+              "description": "chest x-ray",
+              "cpt": null,
+              "units": 3,
+              "chargeCents": 30831
+            }
+          ],
+          "anomaliesFound": [
+            "missing_field"
+          ]
+        }
+      }
+    }
+  ]
+}

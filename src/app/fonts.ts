@@ -1,7 +1,7 @@
 import localFont from "next/font/local";
 
-// Self-hosted so the build stays hermetic (no Google Fonts fetch at build).
-// General Sans = chassis (Fontshare); JetBrains Mono = every measured value.
+// Self-hosted (hermetic build — no Google Fonts fetch). General Sans is the
+// workbench chassis; JetBrains Mono carries the document and every value.
 
 export const generalSans = localFont({
   src: [
@@ -12,16 +12,6 @@ export const generalSans = localFont({
   variable: "--font-general-sans",
   display: "swap",
   fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
-});
-
-export const ibmPlexSerif = localFont({
-  src: [
-    { path: "../fonts/ibm-plex-serif-500.woff2", weight: "500", style: "normal" },
-    { path: "../fonts/ibm-plex-serif-600.woff2", weight: "600", style: "normal" },
-  ],
-  variable: "--font-ibm-plex-serif",
-  display: "swap",
-  fallback: ["Georgia", "ui-serif", "serif"],
 });
 
 export const jetbrainsMono = localFont({
