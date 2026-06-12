@@ -13,7 +13,9 @@
     "generate": "tsx scripts/generate.ts",
     "measure": "tsx scripts/measure.ts",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "e2e": "bddgen && playwright test",
+    "e2e:report": "playwright show-report"
   },
   "dependencies": {
     "@ai-sdk/amazon-bedrock": "^3.0.101",
@@ -36,6 +38,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -43,6 +46,7 @@
     "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "playwright-bdd": "^9.0.0",
     "tailwindcss": "^4",
     "tsx": "^4.22.4",
     "typescript": "^5",

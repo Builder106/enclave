@@ -46,3 +46,10 @@ data/*.db-journal
 .env
 drizzle/meta
 .npmrc
+
+# playwright / bdd
+.features-gen/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
