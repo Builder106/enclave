@@ -11,8 +11,9 @@
 :root {
   color-scheme: dark;
 
-  /* Bench surfaces */
-  --background: #090d12;
+  /* Bench surfaces — the foreign void is deliberately near-black so the lit
+   * enclave interior reads as a distinct, elevated territory above it. */
+  --background: #05080b;
   --card: #10161e;
   --popover: #10161e;
 
@@ -109,14 +110,15 @@ body {
 .enclave-interior {
   background:
     radial-gradient(
-      150% 100% at 50% 0%,
-      color-mix(in oklab, var(--primary) 7%, transparent),
-      transparent 52%
+      135% 90% at 50% 0%,
+      color-mix(in oklab, var(--primary) 15%, transparent),
+      transparent 46%
     ),
-    color-mix(in oklab, var(--primary) 3%, var(--card));
+    color-mix(in oklab, var(--primary) 6%, #141d27);
   box-shadow:
-    inset 0 1px 0 0 color-mix(in oklab, var(--primary) 16%, transparent),
-    inset 0 0 90px -45px color-mix(in oklab, var(--primary) 34%, transparent);
+    inset 0 1px 0 0 color-mix(in oklab, var(--primary) 26%, transparent),
+    inset 0 0 140px -45px color-mix(in oklab, var(--primary) 50%, transparent),
+    0 34px 90px -50px rgba(0, 0, 0, 0.75);
 }
 
 /* The page is foreign territory: a soft top glow, fine grain, and a faint
@@ -132,8 +134,8 @@ body {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E"),
     repeating-linear-gradient(
       -45deg,
-      color-mix(in oklab, var(--foreground) 3%, transparent) 0 1px,
-      transparent 1px 12px
+      color-mix(in oklab, var(--foreground) 5.5%, transparent) 0 1px,
+      transparent 1px 10px
     );
 }
 

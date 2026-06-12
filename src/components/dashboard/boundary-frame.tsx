@@ -16,7 +16,7 @@ function Corner({ position }: { position: string }) {
 
 export function BoundaryFrame({ children }: { children: ReactNode }) {
   return (
-    <div className="enclave-interior relative rounded-md border border-primary/20 px-4 py-8 sm:px-7">
+    <div className="enclave-interior relative rounded-md border border-primary/30 px-4 py-8 sm:px-7">
       <span className="eyebrow absolute -top-[8px] left-5 bg-background px-2 text-primary/75">
         Enclave · on-device boundary
       </span>
