@@ -8,6 +8,7 @@
 [![Node](https://img.shields.io/badge/Node-22%2B-339933.svg?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black.svg?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![AI SDK](https://img.shields.io/badge/AI%20SDK-5-0A0A0A.svg)](https://ai-sdk.dev/)
+[![Live dashboard](https://img.shields.io/badge/dashboard-live-success.svg)](https://enclave-iota.vercel.app)
 [![PHI egress](https://img.shields.io/badge/PHI%20egress-0%20bytes%20(local%20path)-success.svg)](#the-four-provider-design)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
 
