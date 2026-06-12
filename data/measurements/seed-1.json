@@ -3,7 +3,7 @@
   "seed": 1,
   "split": "eval",
   "docCount": 50,
-  "generatedAt": "2026-06-11T20:24:35.564Z",
+  "generatedAt": "2026-06-12T02:10:07.607Z",
   "results": [
     {
       "provider": "local",
@@ -171,6 +171,91 @@
         {
           "field": "printedTotalCents",
           "correct": 48,
+          "total": 50
+        }
+      ]
+    },
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "docCount": 50,
+      "parseRate": 1,
+      "fieldAccuracy": 0.9833333333333333,
+      "exactMatchRate": 0.78,
+      "codeMatch": {
+        "precision": 0.9958333333333333,
+        "recall": 0.9958333333333333,
+        "f1": 0.9958333333333333
+      },
+      "anomalyDetection": {
+        "precision": 1,
+        "recall": 0.9090909090909091,
+        "f1": 0.9523809523809523
+      },
+      "latencyMsP50": 11009.667082999978,
+      "latencyMsP95": 16556.897499999963,
+      "totalCostUsd": 0.03983475,
+      "costPerDocUsd": 0.000796695,
+      "egressBytesTotal": 97303,
+      "perField": [
+        {
+          "field": "patient.firstName",
+          "correct": 50,
+          "total": 50
+        },
+        {
+          "field": "patient.lastName",
+          "correct": 49,
+          "total": 50
+        },
+        {
+          "field": "patient.dob",
+          "correct": 49,
+          "total": 50
+        },
+        {
+          "field": "patient.mrn",
+          "correct": 50,
+          "total": 50
+        },
+        {
+          "field": "patient.phone",
+          "correct": 49,
+          "total": 50
+        },
+        {
+          "field": "encounter.date",
+          "correct": 50,
+          "total": 50
+        },
+        {
+          "field": "encounter.type",
+          "correct": 50,
+          "total": 50
+        },
+        {
+          "field": "encounter.providerName",
+          "correct": 46,
+          "total": 50
+        },
+        {
+          "field": "encounter.npi",
+          "correct": 50,
+          "total": 50
+        },
+        {
+          "field": "payer.name",
+          "correct": 49,
+          "total": 50
+        },
+        {
+          "field": "payer.memberId",
+          "correct": 48,
+          "total": 50
+        },
+        {
+          "field": "printedTotalCents",
+          "correct": 50,
           "total": 50
         }
       ]

@@ -68,6 +68,10 @@ function loadOrGenerateBatch(seed: number): GeneratedDocument[] {
   return docs;
 }
 
+// Infrastructure noise (quota/rate-limit rejections) is never a model
+// measurement: excluded from metrics, and 3 in a row aborts the run.
+const INFRA_NOISE = /too many|throttl|quota|rate limit|429/i;
+
 const pct = (x: number): string => `${(x * 100).toFixed(1)}%`;
 const prf = (p: PRF1): string => `P ${pct(p.precision)}  R ${pct(p.recall)}  F1 ${pct(p.f1)}`;
 
@@ -118,7 +122,7 @@ async function main(): Promise<void> {
   if (resume) {
     const cleanIds = new Set(
       (await db.select().from(runs).where(and(eq(runs.provider, provider), eq(runs.seed, seed))))
-        .filter((row) => !(row.error !== null && /too many|throttl|quota/i.test(row.error)))
+        .filter((row) => !(row.error !== null && INFRA_NOISE.test(row.error)))
         .map((row) => row.documentId),
     );
     candidates = allEvalDocs.filter((d) => !cleanIds.has(d.id));
@@ -166,7 +170,7 @@ async function main(): Promise<void> {
       console.log(`  [${i + 1}/${chunk.length}] last=${doc.id} ${Math.round(result.latencyMs)}ms errors=${errors}`);
     }
     const tail = results.slice(-3);
-    if (tail.length === 3 && tail.every((r) => r.error !== null && /too many|throttl|quota/i.test(r.error))) {
+    if (tail.length === 3 && tail.every((r) => r.error !== null && INFRA_NOISE.test(r.error))) {
       console.log(`  aborting after 3 consecutive quota/throttle errors at ${doc.id} — rerun this range after the quota resets`);
       break;
     }
@@ -180,7 +184,7 @@ async function main(): Promise<void> {
       .select()
       .from(runs)
       .where(and(eq(runs.provider, provider), eq(runs.seed, seed)))
-  ).filter((row) => !(row.error !== null && /too many|throttl|quota/i.test(row.error)));
+  ).filter((row) => !(row.error !== null && INFRA_NOISE.test(row.error)));
   const latest = new Map<string, (typeof rows)[number]>();
   for (const row of rows) {
     const prev = latest.get(row.documentId);

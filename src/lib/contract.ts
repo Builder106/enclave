@@ -289,6 +289,7 @@ export const BEDROCK_PRICING: Record<string, { inPerMTok: number; outPerMTok: nu
  * free tier, which is the economically honest number to compare.
  */
 export const GROQ_PRICING: Record<string, { inPerMTok: number; outPerMTok: number }> = {
+  "openai/gpt-oss-120b": { inPerMTok: 0.15, outPerMTok: 0.75 },
   "llama-3.3-70b-versatile": { inPerMTok: 0.59, outPerMTok: 0.79 },
   "llama-3.1-8b-instant": { inPerMTok: 0.05, outPerMTok: 0.08 },
 };
@@ -299,8 +300,12 @@ export const DEFAULTS = {
   /** 8 GB M1 ceiling: a 3B-class model is the honest local pick */
   localModel: "qwen2.5:3b-instruct",
   bedrockModel: "us.anthropic.claude-haiku-4-5-20251001-v1:0",
-  /** hosted open-weights ceiling — what scale buys over the local 3B */
-  groqModel: "llama-3.3-70b-versatile",
+  /**
+   * Hosted open-weights ceiling — what 40x the params buys over the local
+   * 3B. gpt-oss-120b because Groq's json_schema structured outputs only
+   * cover select models (llama-3.3-70b and qwen3-32b rejected it).
+   */
+  groqModel: "openai/gpt-oss-120b",
   ollamaBaseUrl: "http://localhost:11434/v1",
   groqBaseUrl: "https://api.groq.com/openai/v1",
   dbUrl: "file:./data/enclave.db",
