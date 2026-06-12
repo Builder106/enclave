@@ -1,12 +1,5 @@
 import { Badge } from "@/components/ui/badge";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   Table,
   TableBody,
   TableCell,
@@ -22,6 +15,7 @@ import {
 } from "@/lib/contract";
 import { cn } from "@/lib/utils";
 import { bytes, f1, latency, pct, usd } from "./format";
+import { PanelHeading } from "./panel-heading";
 
 // Per-column "winner": the best value among measured providers. The comparison
 // is the product — accent the leader in each column so it reads at a glance.
@@ -44,23 +38,23 @@ function bestValues(results: EvalMetrics[]): Record<string, number> {
   return best;
 }
 
-const NUM = "text-right font-mono tabular-nums";
+const NUM = "tabular text-right font-mono";
 
 /** Accent the winning cell; ties (e.g. two $0 rows) all win. */
 function cell(isBest: boolean): string {
-  return cn(NUM, isBest ? "text-primary font-semibold" : "text-foreground");
+  return cn(NUM, isBest ? "text-primary" : "text-foreground");
 }
 
 function EgressBadge({ n }: { n: number }) {
   if (n === 0) {
     return (
-      <Badge className="border-primary/25 bg-primary/15 font-mono tabular-nums text-primary">
+      <Badge className="tabular rounded-sm border-primary/25 bg-primary/15 font-mono font-normal text-primary">
         0 B
       </Badge>
     );
   }
   return (
-    <Badge className="border-amber-400/25 bg-amber-400/15 font-mono tabular-nums text-amber-300">
+    <Badge className="tabular rounded-sm border-egress/30 bg-egress/15 font-mono font-normal text-egress">
       {bytes(n)}
     </Badge>
   );
@@ -136,14 +130,13 @@ export function MoneyTable({ results }: { results: EvalMetrics[] }) {
   const byProvider = new Map(results.map((r) => [r.provider, r]));
   const best = bestValues(results);
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Provider comparison</CardTitle>
-        <CardDescription>
-          Same documents, same prompts, same scoring — held-out eval split.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+    <section>
+      <PanelHeading
+        index="01"
+        title="Provider comparison"
+        note="Same documents, same prompts, same scoring — held-out eval split."
+      />
+      <div className="mt-4 overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-transparent">
@@ -169,14 +162,14 @@ export function MoneyTable({ results }: { results: EvalMetrics[] }) {
             })}
           </TableBody>
         </Table>
-        <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-          <span className="font-semibold text-primary">Accent</span> marks the
-          best in each column. <span className="text-primary">PHI egress</span>{" "}
-          is the bytes of document content sent off-machine —{" "}
-          <span className="text-primary">0 B</span> means the model ran on-device
-          and nothing left it.
-        </p>
-      </CardContent>
-    </Card>
+      </div>
+      <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+        <span className="font-semibold text-primary">Accent</span> marks the best
+        in each column. <span className="text-primary">PHI egress</span> is the
+        bytes of document content sent off-machine —{" "}
+        <span className="text-primary">0 B</span> means the model ran on-device
+        and nothing left it.
+      </p>
+    </section>
   );
 }

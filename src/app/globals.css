@@ -1,26 +1,47 @@
 @import "tailwindcss";
 
-/* Instrument-panel palette: near-black blue-tinted base, single #4FD1A5 accent. */
+/* Enclave — "The Containment Bench"
+ * The UI is a sealed on-device measurement instrument. A thin containment
+ * boundary frames the readout; egress is its signature gauge — bytes that
+ * cross the wall. Green = contained (seal intact, 0 B); amber = a provider
+ * phoned home. Numbers are chiseled in mono as instrument readouts.
+ * Palette: obsidian bench, phosphor containment-green, egress-amber warning.
+ * Type: General Sans (chassis) + JetBrains Mono (every measured value). */
+
 :root {
   color-scheme: dark;
-  --background: #0b0f14;
-  --foreground: #dce3ea;
-  --card: #0f151c;
-  --card-foreground: #dce3ea;
-  --popover: #0f151c;
-  --popover-foreground: #dce3ea;
-  --primary: #4fd1a5;
-  --primary-foreground: #07221a;
-  --secondary: #151d26;
-  --secondary-foreground: #b7c2cc;
-  --muted: #151d26;
-  --muted-foreground: #8b98a5;
+
+  /* Bench surfaces */
+  --background: #090d12;
+  --card: #10161e;
+  --popover: #10161e;
+
+  /* Ink scale */
+  --foreground: #e6edf3;
+  --card-foreground: #e6edf3;
+  --popover-foreground: #e6edf3;
+  --muted: #161f29;
+  --muted-foreground: #8995a3;
+  --ink-faint: #55626f;
+
+  /* Containment-green: seal intact / 0 bytes / best-in-column */
+  --primary: #3dbe8b;
+  --primary-foreground: #04231a;
+
+  /* Egress-amber: bytes crossed the boundary */
+  --egress: #e0a33e;
+  --egress-foreground: #2a1d06;
+
+  --secondary: #161f29;
+  --secondary-foreground: #c2ccd6;
   --accent: #16202a;
-  --accent-foreground: #dce3ea;
+  --accent-foreground: #e6edf3;
   --destructive: #f0716a;
-  --border: #1c2630;
-  --input: #1c2630;
-  --ring: #4fd1a5;
+  --border: #1b2530;
+  --input: #1b2530;
+  --ring: #3dbe8b;
+
+  --radius: 0.25rem;
 }
 
 @theme inline {
@@ -42,15 +63,73 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  /* System stacks only — builds must not need network fonts. */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco,
-    "Cascadia Mono", Consolas, monospace;
+
+  /* Semantic aliases — named by domain meaning, not hue */
+  --color-contained: var(--primary);
+  --color-egress: var(--egress);
+  --color-egress-foreground: var(--egress-foreground);
+  --color-ink-faint: var(--ink-faint);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* next/font local vars (set on <html>), with graceful fallbacks */
+  --font-sans: var(--font-general-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+}
+
+/* ── Instrument detailing utilities ──────────────────────────────────── */
+
+/* Mono ALL-CAPS eyebrow with a numeric index — every panel wears one.
+ * Color is set per-use with a text utility (kept off here so Tailwind's
+ * text-* utilities aren't out-specified by this unlayered rule). */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Faint sealed-device texture: grain + a single soft top glow. */
+.bench-atmosphere {
+  background-image:
+    radial-gradient(
+      120% 80% at 50% -10%,
+      color-mix(in oklab, var(--primary) 7%, transparent),
+      transparent 60%
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+/* Orchestrated load: each .rise lifts in sequence via --i stagger. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise {
+  animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
 }

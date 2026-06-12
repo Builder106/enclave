@@ -1,14 +1,8 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Progress, ProgressLabel } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { type EvalMetrics, type FieldScore } from "@/lib/contract";
 import { pct } from "./format";
+import { PanelHeading } from "./panel-heading";
 
 const GROUP_ORDER = ["patient", "encounter", "payer", "totals"] as const;
 type Group = (typeof GROUP_ORDER)[number];
@@ -74,18 +68,21 @@ function ProviderPanel({ m }: { m: EvalMetrics }) {
 export function FieldAccuracy({ results }: { results: EvalMetrics[] }) {
   if (results.length === 0) return null;
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Per-field accuracy</CardTitle>
-        <CardDescription>
-          Scalar fields scored exact-match against generator ground truth.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+    <section>
+      <PanelHeading
+        index="02"
+        title="Per-field accuracy"
+        note="Scalar fields scored exact-match against generator ground truth. Select a provider."
+      />
+      <div className="mt-4">
         <Tabs defaultValue={results[0].provider}>
-          <TabsList>
+          <TabsList variant="line">
             {results.map((m) => (
-              <TabsTrigger key={m.provider} value={m.provider}>
+              <TabsTrigger
+                key={m.provider}
+                value={m.provider}
+                className="font-mono text-xs"
+              >
                 {m.provider}
               </TabsTrigger>
             ))}
@@ -96,7 +93,7 @@ export function FieldAccuracy({ results }: { results: EvalMetrics[] }) {
             </TabsContent>
           ))}
         </Tabs>
-      </CardContent>
-    </Card>
+      </div>
+    </section>
   );
 }
