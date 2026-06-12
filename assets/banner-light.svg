@@ -1,32 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="Enclave — Clinical document AI that never phones home">
-  <rect width="1200" height="420" fill="#FAFBFC"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="Enclave — clinical document AI that never phones home">
+  <rect width="1200" height="420" fill="#eef1f5"/>
+  <rect x="0" y="0" width="1200" height="4" fill="#15825a"/>
 
-  <!-- vault mark -->
-  <g transform="translate(84 132) scale(2.3)">
-    <rect x="7" y="7" width="50" height="50" rx="14" fill="none" stroke="#1FAE83" stroke-width="4.5"/>
-    <path d="M23 18h11l8 8v19H23Z" fill="none" stroke="#66727E" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M34 18v8h8" fill="none" stroke="#66727E" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M27.5 33h10M27.5 39h6.5" stroke="#1FAE83" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="51" cy="51" r="11.5" fill="#FAFBFC"/>
-    <path d="M47 50v-2.5a4 4 0 0 1 8 0V50" fill="none" stroke="#1FAE83" stroke-width="2.6"/>
-    <rect x="44.5" y="50" width="13" height="10" rx="2.5" fill="#1FAE83"/>
+  <!-- mark: corner brackets sealing a core -->
+  <g transform="translate(98 150) scale(1.62)" fill="none">
+    <g stroke="#15825a" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 19V14a6 6 0 0 1 6-6h5"/>
+      <path d="M45 8h5a6 6 0 0 1 6 6v5"/>
+      <path d="M56 45v5a6 6 0 0 1-6 6h-5"/>
+      <path d="M19 56h-5a6 6 0 0 1-6-6v-5"/>
+    </g>
+    <rect x="24" y="24" width="16" height="16" rx="4.5" fill="#15825a"/>
   </g>
 
-  <!-- wordmark + tagline -->
-  <text x="272" y="208" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="88" font-weight="700" letter-spacing="-2" fill="#111418">Enclave</text>
-  <text x="276" y="252" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#57606A">Clinical document AI that <tspan fill="#0F8F6B">never phones home</tspan>.</text>
-  <text x="276" y="284" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#57606A">Local agentic extraction, measured against the cloud.</text>
+  <text x="232" y="198" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="80" font-weight="700" letter-spacing="-1.5" fill="#141a21">Enclave</text>
+  <text x="235" y="248" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="28" fill="#5c6873">Clinical document AI that <tspan fill="#15825a" font-weight="600">never phones home</tspan>.</text>
+  <text x="235" y="302" font-family="ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace" font-size="18" letter-spacing="3.5" fill="#8a96a3">LOAD&#160;·&#160;EXTRACT&#160;·&#160;SEE WHAT LEAVES THE MACHINE</text>
 
-  <!-- provider columns: local wins on privacy -->
-  <g font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12.5" letter-spacing="2.5" text-anchor="middle">
-    <rect x="942" y="180" width="20" height="96" rx="3" fill="#EAEEF2" stroke="#C9D2DA"/>
-    <rect x="1022" y="120" width="20" height="156" rx="3" fill="#4FD1A5" stroke="#1FAE83"/>
-    <rect x="1102" y="150" width="20" height="126" rx="3" fill="#EAEEF2" stroke="#C9D2DA"/>
-    <line x1="918" y1="276.5" x2="1146" y2="276.5" stroke="#C9D2DA" stroke-width="1.5"/>
-    <path d="M1028 107v-3a4 4 0 0 1 8 0v3" fill="none" stroke="#1FAE83" stroke-width="2.4"/>
-    <rect x="1025" y="107" width="14" height="10" rx="2.5" fill="#1FAE83"/>
-    <text x="952" y="304" fill="#6B7480">RULES</text>
-    <text x="1032" y="304" fill="#0F8F6B" font-weight="600">LOCAL</text>
-    <text x="1112" y="304" fill="#6B7480">BEDROCK</text>
+  <!-- thesis chip -->
+  <g transform="translate(905 176)">
+    <rect x="0" y="0" width="202" height="68" rx="8" fill="#ffffff" stroke="#15825a" stroke-opacity="0.4"/>
+    <circle cx="24" cy="25" r="4" fill="#15825a"/>
+    <text x="38" y="30" font-family="ui-monospace,'SFMono-Regular',Menlo,monospace" font-size="13" letter-spacing="2" fill="#15825a">ON-DEVICE</text>
+    <text x="24" y="55" font-family="ui-monospace,'SFMono-Regular',Menlo,monospace" font-size="21" font-weight="700" fill="#141a21">0 B egress</text>
   </g>
 </svg>
