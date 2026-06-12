@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   description:
     "Extraction, code matching, and anomaly flagging on synthetic superbills — a deterministic rules baseline vs a local Ollama model vs AWS Bedrock, measured. PHI never leaves the machine.",
   icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     apple: "/apple-touch-icon.png",
   },
 };
