@@ -11,9 +11,9 @@ export function PanelHeading({
   return (
     <div className="border-b border-border/60 pb-3">
       <div className="flex items-baseline gap-2.5">
-        <span className="eyebrow text-primary/65">{index}</span>
+        <span className="eyebrow text-primary">{index}</span>
         <span className="eyebrow text-border">/</span>
-        <h2 className="text-sm font-semibold tracking-tight text-foreground">
+        <h2 className="serif text-lg font-semibold tracking-tight text-foreground">
           {title}
         </h2>
       </div>

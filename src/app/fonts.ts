@@ -14,6 +14,16 @@ export const generalSans = localFont({
   fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
 });
 
+export const ibmPlexSerif = localFont({
+  src: [
+    { path: "../fonts/ibm-plex-serif-500.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/ibm-plex-serif-600.woff2", weight: "600", style: "normal" },
+  ],
+  variable: "--font-ibm-plex-serif",
+  display: "swap",
+  fallback: ["Georgia", "ui-serif", "serif"],
+});
+
 export const jetbrainsMono = localFont({
   src: [
     { path: "../fonts/jetbrains-mono-400.woff2", weight: "400", style: "normal" },

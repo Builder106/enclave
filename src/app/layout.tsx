@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { generalSans, jetbrainsMono } from "./fonts";
+import { generalSans, ibmPlexSerif, jetbrainsMono } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0f14",
-  colorScheme: "dark",
+  themeColor: "#eef1f4",
+  colorScheme: "light",
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full antialiased ${generalSans.variable} ${jetbrainsMono.variable}`}
+      className={`h-full antialiased ${generalSans.variable} ${ibmPlexSerif.variable} ${jetbrainsMono.variable}`}
     >
       <body className="bench-atmosphere flex min-h-full flex-col font-sans">
         {children}

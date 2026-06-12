@@ -1,9 +1,9 @@
 import { PROVIDER_LABELS, type EvalMetrics } from "@/lib/contract";
 import { bytes } from "./format";
 
-// The thesis, stated before the table: local/rules keep PHI on-device (seal
-// intact, 0 bytes); hosted accuracy is bought with bytes crossing the wall.
-// Solid border = contained; dashed = breached.
+// Chain of custody, in clinical-report terms: which providers kept the
+// specimen contained on-device (0 bytes) vs released it off-site. The
+// off-site card carries an abnormal-flag treatment (▲, dashed amber rule).
 export function EgressHeadline({ results }: { results: EvalMetrics[] }) {
   if (results.length === 0) return null;
   const onDevice = results.filter((r) => r.egressBytesTotal === 0);
@@ -17,15 +17,15 @@ export function EgressHeadline({ results }: { results: EvalMetrics[] }) {
   return (
     <section className="space-y-3">
       <div className="eyebrow flex items-center gap-2 text-ink-faint">
-        <span>Egress</span>
-        <span className="text-border">/</span>
-        <span>bytes that cross the border</span>
+        <span>Chain of custody</span>
+        <span className="text-border">·</span>
+        <span>specimen bytes released off-site</span>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
-        <div className="rounded-md border border-primary/35 bg-primary/[0.06] p-5">
-          <div className="flex items-center gap-2 text-primary">
+        <div className="rounded-sm border border-primary/30 bg-primary/[0.05] p-5">
+          <div className="eyebrow flex items-center gap-2 text-primary">
             <span className="size-1.5 rounded-full bg-primary" />
-            <span className="eyebrow">seal intact</span>
+            <span>contained</span>
           </div>
           <div className="tabular mt-3 font-mono text-3xl font-medium text-primary">
             0 bytes
@@ -34,14 +34,16 @@ export function EgressHeadline({ results }: { results: EvalMetrics[] }) {
             never left the machine
           </div>
           <div className="mt-1 text-xs text-muted-foreground">
-            {onDevice.length ? `${names(onDevice)} — PHI stays on-device` : "—"}
+            {onDevice.length
+              ? `${names(onDevice)} — PHI processed on-device`
+              : "—"}
           </div>
         </div>
 
-        <div className="rounded-md border border-dashed border-egress/45 bg-egress/[0.05] p-5">
-          <div className="flex items-center gap-2 text-egress">
-            <span className="size-1.5 rounded-full bg-egress" />
-            <span className="eyebrow">boundary crossed</span>
+        <div className="rounded-sm border border-dashed border-egress/55 bg-egress/[0.05] p-5">
+          <div className="eyebrow flex items-center gap-2 text-egress">
+            <span aria-hidden>&#9650;</span>
+            <span>transmitted off-site</span>
           </div>
           <div className="tabular mt-3 font-mono text-3xl font-medium text-egress">
             {offDevice.length ? bytes(maxOff) : "—"}
@@ -51,7 +53,7 @@ export function EgressHeadline({ results }: { results: EvalMetrics[] }) {
           </div>
           <div className="mt-1 text-xs text-muted-foreground">
             {offDevice.length
-              ? `${names(offDevice)} — accuracy paid in bytes`
+              ? `${names(offDevice)} — released for processing`
               : "no hosted provider measured yet"}
           </div>
         </div>

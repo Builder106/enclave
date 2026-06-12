@@ -1,48 +1,48 @@
 @import "tailwindcss";
 
-/* Enclave — "The Containment Bench"
- * The UI is a sealed on-device measurement instrument. A thin containment
- * boundary frames the readout; egress is its signature gauge — bytes that
- * cross the wall. Green = contained (seal intact, 0 B); amber = a provider
- * phoned home. Numbers are chiseled in mono as instrument readouts.
- * Palette: obsidian bench, phosphor containment-green, egress-amber warning.
- * Type: General Sans (chassis) + JetBrains Mono (every measured value). */
+/* Enclave — "The Pathology Report"
+ * The page is a clinical document report issued on-prem. A serif masthead
+ * names the report and its specimen metadata (seed, docs, accession = build
+ * commit); results read as a lab panel with reference ranges and H/L-style
+ * flags; the privacy thesis is a chain-of-custody notice — the specimen
+ * (PHI) never left the lab. Light clinical paper, ink-black text, clinical
+ * green (normal / contained / best) and flag-amber (abnormal / off-site).
+ * Type: IBM Plex Serif masthead, General Sans body, JetBrains Mono values. */
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* Bench surfaces — the foreign void is deliberately near-black so the lit
-   * enclave interior reads as a distinct, elevated territory above it. */
-  --background: #05080b;
-  --card: #10161e;
-  --popover: #10161e;
+  /* Paper surfaces */
+  --background: #eef1f4; /* clinical desk */
+  --card: #ffffff; /* report sheet */
+  --popover: #ffffff;
 
   /* Ink scale */
-  --foreground: #e6edf3;
-  --card-foreground: #e6edf3;
-  --popover-foreground: #e6edf3;
-  --muted: #161f29;
-  --muted-foreground: #8995a3;
-  --ink-faint: #55626f;
+  --foreground: #161b22;
+  --card-foreground: #161b22;
+  --popover-foreground: #161b22;
+  --muted: #f2f5f8;
+  --muted-foreground: #5a6672;
+  --ink-faint: #8a96a3;
 
-  /* Containment-green: seal intact / 0 bytes / best-in-column */
-  --primary: #3dbe8b;
-  --primary-foreground: #04231a;
+  /* Clinical green: within reference range / contained / best-in-column */
+  --primary: #157f52;
+  --primary-foreground: #ffffff;
 
-  /* Egress-amber: bytes crossed the boundary */
-  --egress: #e0a33e;
-  --egress-foreground: #2a1d06;
+  /* Flag amber: abnormal / specimen transmitted off-site */
+  --egress: #b45309;
+  --egress-foreground: #ffffff;
 
-  --secondary: #161f29;
-  --secondary-foreground: #c2ccd6;
-  --accent: #16202a;
-  --accent-foreground: #e6edf3;
-  --destructive: #f0716a;
-  --border: #1b2530;
-  --input: #1b2530;
-  --ring: #3dbe8b;
+  --secondary: #f2f5f8;
+  --secondary-foreground: #28323d;
+  --accent: #eef4f0;
+  --accent-foreground: #161b22;
+  --destructive: #b42318;
+  --border: #d9e0e7;
+  --input: #d9e0e7;
+  --ring: #157f52;
 
-  --radius: 0.25rem;
+  --radius: 0.125rem;
 }
 
 @theme inline {
@@ -65,19 +65,20 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* Semantic aliases — named by domain meaning, not hue */
+  /* Semantic aliases — named by clinical meaning, not hue */
   --color-contained: var(--primary);
   --color-egress: var(--egress);
   --color-egress-foreground: var(--egress-foreground);
   --color-ink-faint: var(--ink-faint);
 
-  --radius-sm: calc(var(--radius) - 2px);
+  --radius-sm: var(--radius);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 2px);
   --radius-xl: calc(var(--radius) + 4px);
 
   /* next/font local vars (set on <html>), with graceful fallbacks */
   --font-sans: var(--font-general-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-ibm-plex-serif), Georgia, ui-serif, serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -87,63 +88,45 @@ body {
   font-family: var(--font-sans);
 }
 
-/* ── Instrument detailing utilities ──────────────────────────────────── */
+/* ── Clinical-report utilities ───────────────────────────────────────── */
 
-/* Mono ALL-CAPS eyebrow with a numeric index — every panel wears one.
- * Color is set per-use with a text utility (kept off here so Tailwind's
- * text-* utilities aren't out-specified by this unlayered rule). */
+/* Mono ALL-CAPS eyebrow / accession label. Color set per-use. */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+
+.serif {
+  font-family: var(--font-serif);
 }
 
 .tabular {
   font-variant-numeric: tabular-nums;
 }
 
-/* Inside the enclave: a lifted, faintly-tinted secure interior — a territory
- * set against the foreign void of the page margins (the geographic-enclave
- * reading) and an isolated region walled off from its host (the security
- * reading). Depth + tint is what makes the boundary mean something. */
-.enclave-interior {
-  background:
-    radial-gradient(
-      135% 90% at 50% 0%,
-      color-mix(in oklab, var(--primary) 15%, transparent),
-      transparent 46%
-    ),
-    color-mix(in oklab, var(--primary) 6%, #141d27);
+/* The report sheet: white paper lifted off the clinical desk, with a faint
+ * top accent rule — the lab-report masthead bar. */
+.report-sheet {
+  background: var(--card);
   box-shadow:
-    inset 0 1px 0 0 color-mix(in oklab, var(--primary) 26%, transparent),
-    inset 0 0 140px -45px color-mix(in oklab, var(--primary) 50%, transparent),
-    0 34px 90px -50px rgba(0, 0, 0, 0.75);
+    0 0 0 1px var(--border),
+    0 1px 2px rgba(22, 27, 34, 0.04),
+    0 18px 40px -28px rgba(22, 27, 34, 0.18);
 }
 
-/* The page is foreign territory: a soft top glow, fine grain, and a faint
- * cold diagonal hatch. The enclave interior sits opaque on top of this, so
- * the readout reads as an ordered region surrounded by outside space. */
+/* Faint clinical paper grain on the desk behind the sheet. */
 .bench-atmosphere {
   background-image:
-    radial-gradient(
-      120% 80% at 50% -10%,
-      color-mix(in oklab, var(--primary) 7%, transparent),
-      transparent 60%
-    ),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E"),
-    repeating-linear-gradient(
-      -45deg,
-      color-mix(in oklab, var(--foreground) 5.5%, transparent) 0 1px,
-      transparent 1px 10px
-    );
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
 }
 
 /* Orchestrated load: each .rise lifts in sequence via --i stagger. */
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -151,7 +134,7 @@ body {
   }
 }
 .rise {
-  animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: calc(var(--i, 0) * 70ms);
 }
 @media (prefers-reduced-motion: reduce) {
