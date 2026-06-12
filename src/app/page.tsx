@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { EmptyState } from "@/components/dashboard/empty-state";
+import { EgressHeadline } from "@/components/dashboard/egress-headline";
 import { FieldAccuracy } from "@/components/dashboard/field-accuracy";
 import { FootnoteStrip } from "@/components/dashboard/footnote";
 import { DashboardHeader } from "@/components/dashboard/header";
@@ -30,6 +31,7 @@ export default function Page() {
       <DashboardHeader file={file} />
       {file ? (
         <>
+          <EgressHeadline results={file.results} />
           <MoneyTable results={file.results} />
           <FieldAccuracy results={file.results} />
           <FootnoteStrip results={file.results} />

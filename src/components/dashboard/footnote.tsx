@@ -12,7 +12,7 @@ export function FootnoteStrip({ results }: { results: EvalMetrics[] }) {
         </dd>
         <dt className="text-muted-foreground/70">repro</dt>
         <dd className="font-mono text-muted-foreground">
-          pnpm generate · pnpm measure --provider rules|local|bedrock
+          pnpm generate · pnpm measure --provider rules|local|groq|bedrock
         </dd>
         <dt className="text-muted-foreground/70">docs</dt>
         <dd>
