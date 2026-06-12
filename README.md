@@ -18,8 +18,14 @@
 
 ## The workbench
 
-<!-- DEMO_RECORDINGS -->
-_Recordings land here once the demo suite is wired (see Roadmap)._ For now, the live link above is the fastest way in: choose **Groq** and watch ~2 KB travel device→cloud as the fields populate; switch to **Local** and the same extraction runs sealed at **0 B**.
+<details open>
+<summary><b>Walkthrough — run a specimen in the cloud, then keep it on-device</b></summary>
+
+![Enclave workbench walkthrough](assets/demo-workbench.gif)
+
+Pick a specimen, choose **Groq**, and watch ~2 KB travel device→cloud as the fields populate; switch to **Local** and the same extraction runs sealed at **0 B**. ([mp4](assets/demo-workbench.mp4)) — recorded by the Gherkin demo suite (`pnpm demo && pnpm demo:gif`).
+
+</details>
 
 ## The headline findings
 
@@ -111,7 +117,6 @@ Enclave is the AI-layer sequel to [MedCore](https://github.com/Builder106/MedCor
 
 - **Bedrock column** — let the cron-accumulated Trial 03 finish; publish all four providers.
 - **Compare mode** — run one specimen through all three extractors side-by-side so the accuracy-vs-egress tradeoff reads in a single shot.
-- **Demo recordings** — wire the Gherkin/Playwright demo suite and embed the walkthrough GIFs above.
 - **LoRA adaptation** — fine-tune the 3B on generator output to close the parity gap with the hosted model.
 
 ## License

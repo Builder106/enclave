@@ -15,7 +15,9 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "e2e": "bddgen && playwright test",
-    "e2e:report": "playwright show-report"
+    "e2e:report": "playwright show-report",
+    "demo": "bddgen --config playwright.demo.config.ts && playwright test --config playwright.demo.config.ts",
+    "demo:gif": "sh scripts/make-demo-gif.sh"
   },
   "dependencies": {
     "@ai-sdk/amazon-bedrock": "^3.0.101",
