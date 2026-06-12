@@ -19,7 +19,7 @@ export function EgressHeadline({ results }: { results: EvalMetrics[] }) {
       <div className="eyebrow flex items-center gap-2 text-ink-faint">
         <span>Egress</span>
         <span className="text-border">/</span>
-        <span>bytes off device</span>
+        <span>bytes that cross the border</span>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
         <div className="rounded-md border border-primary/35 bg-primary/[0.06] p-5">

@@ -102,7 +102,26 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Faint sealed-device texture: grain + a single soft top glow. */
+/* Inside the enclave: a lifted, faintly-tinted secure interior — a territory
+ * set against the foreign void of the page margins (the geographic-enclave
+ * reading) and an isolated region walled off from its host (the security
+ * reading). Depth + tint is what makes the boundary mean something. */
+.enclave-interior {
+  background:
+    radial-gradient(
+      150% 100% at 50% 0%,
+      color-mix(in oklab, var(--primary) 7%, transparent),
+      transparent 52%
+    ),
+    color-mix(in oklab, var(--primary) 3%, var(--card));
+  box-shadow:
+    inset 0 1px 0 0 color-mix(in oklab, var(--primary) 16%, transparent),
+    inset 0 0 90px -45px color-mix(in oklab, var(--primary) 34%, transparent);
+}
+
+/* The page is foreign territory: a soft top glow, fine grain, and a faint
+ * cold diagonal hatch. The enclave interior sits opaque on top of this, so
+ * the readout reads as an ordered region surrounded by outside space. */
 .bench-atmosphere {
   background-image:
     radial-gradient(
@@ -110,7 +129,12 @@ body {
       color-mix(in oklab, var(--primary) 7%, transparent),
       transparent 60%
     ),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(
+      -45deg,
+      color-mix(in oklab, var(--foreground) 3%, transparent) 0 1px,
+      transparent 1px 12px
+    );
 }
 
 /* Orchestrated load: each .rise lifts in sequence via --i stagger. */
