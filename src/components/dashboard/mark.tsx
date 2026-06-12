@@ -1,44 +1,21 @@
+// The Enclave mark: four corner brackets sealing a contained core — the same
+// on-device containment boundary that frames the dashboard. One mark, reused
+// as favicon (app/icon.svg) and apple-touch-icon (scripts/make-icons.ts).
 export function EnclaveMark({ className }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 64 64"
-      className={className}
-      aria-hidden="true"
-      fill="none"
-    >
-      <rect
-        x="7"
-        y="7"
-        width="50"
-        height="50"
-        rx="14"
-        stroke="#4FD1A5"
-        strokeWidth="5"
-      />
-      <path
-        d="M23 18h11l8 8v19H23Z"
-        stroke="#8B98A5"
-        strokeWidth="3.2"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M34 18v8h8"
-        stroke="#8B98A5"
-        strokeWidth="3.2"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M27.5 33h10M27.5 39h6.5"
-        stroke="#4FD1A5"
-        strokeWidth="3.2"
+    <svg viewBox="0 0 64 64" className={className} aria-hidden="true" fill="none">
+      <g
+        stroke="#3dbe8b"
+        strokeWidth="5.5"
         strokeLinecap="round"
-      />
-      <path
-        d="M47 50v-2.5a4 4 0 0 1 8 0V50"
-        stroke="#4FD1A5"
-        strokeWidth="2.6"
-      />
-      <rect x="44.5" y="50" width="13" height="10" rx="2.5" fill="#4FD1A5" />
+        strokeLinejoin="round"
+      >
+        <path d="M8 19V14a6 6 0 0 1 6-6h5" />
+        <path d="M45 8h5a6 6 0 0 1 6 6v5" />
+        <path d="M56 45v5a6 6 0 0 1-6 6h-5" />
+        <path d="M19 56h-5a6 6 0 0 1-6-6v-5" />
+      </g>
+      <rect x="24" y="24" width="16" height="16" rx="4.5" fill="#3dbe8b" />
     </svg>
   );
 }
