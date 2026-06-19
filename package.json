@@ -22,15 +22,15 @@
   "dependencies": {
     "@ai-sdk/amazon-bedrock": "^3.0.101",
     "@ai-sdk/openai-compatible": "^1.0.39",
-    "@base-ui/react": "^1.5.0",
-    "@libsql/client": "^0.17.3",
+    "@base-ui/react": "^1.6.0",
+    "@libsql/client": "^0.17.4",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "ai": "^5.0.197",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.45.2",
-    "lucide-react": "^1.18.0",
+    "lucide-react": "^1.21.0",
     "next": "16.2.9",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
@@ -40,7 +40,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@playwright/test": "^1.60.0",
+    "@playwright/test": "^1.61.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -48,11 +48,11 @@
     "drizzle-kit": "^0.31.10",
     "eslint": "^10",
     "eslint-config-next": "16.2.9",
-    "playwright-bdd": "^9.0.0",
+    "playwright-bdd": "^9.2.0",
     "tailwindcss": "^4",
     "tsx": "^4.22.4",
     "typescript": "^5",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.9"
   },
   "packageManager": "pnpm@11.5.2"
 }
