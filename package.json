@@ -20,13 +20,13 @@
     "demo:gif": "sh scripts/make-demo-gif.sh"
   },
   "dependencies": {
-    "@ai-sdk/amazon-bedrock": "^5.0.17",
-    "@ai-sdk/openai-compatible": "^3.0.7",
+    "@ai-sdk/amazon-bedrock": "^5.0.23",
+    "@ai-sdk/openai-compatible": "^3.0.11",
     "@base-ui/react": "^1.6.0",
     "@libsql/client": "^0.17.4",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "ai": "^7.0.22",
+    "ai": "^7.0.30",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.45.2",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1",
-    "@tailwindcss/postcss": "^4.3.2",
+    "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.1.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
@@ -49,8 +49,8 @@
     "eslint": "^10.7.0",
     "eslint-config-next": "16.2.10",
     "playwright-bdd": "^9.2.0",
-    "tailwindcss": "^4.3.2",
-    "tsx": "^4.23.0",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10"
   },
