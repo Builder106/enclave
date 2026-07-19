@@ -13,3 +13,5 @@ minimumReleaseAgeExclude:
   - ai@7.0.4
   - lucide-react@1.22.0
 verifyDepsBeforeRun: false
+packages:
+  - "."
