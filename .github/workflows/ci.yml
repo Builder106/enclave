@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  pull-requests: write
+  contents: read
+
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -14,12 +18,26 @@ jobs:
 
       - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: pnpm
 
-      - run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        id: install
+        run: |
+          if ! pnpm install --frozen-lockfile 2>&1 | tee pnpm-output.log; then
+            if grep -q "ERR_PNPM_MINIMUM_RELEASE_AGE_VIOLATION" pnpm-output.log; then
+              echo "::error title=Supply Chain Policy Block::One or more packages violate the minimumReleaseAge policy. This PR is blocked until the packages mature."
+            fi
+            exit 1
+          fi
+
+      - name: Comment on Dependabot PRs
+        if: failure() && steps.install.outcome == 'failure' && github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'
+        run: gh pr comment ${{ github.event.pull_request.number }} --body "⚠️ **Quarantine Active:** Some packages in this PR were published too recently and violate the repository's supply chain policies. This PR will fail CI until the quarantine period expires."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: pnpm typecheck
 
@@ -34,12 +52,26 @@ jobs:
 
       - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: pnpm
 
-      - run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        id: install
+        run: |
+          if ! pnpm install --frozen-lockfile 2>&1 | tee pnpm-output.log; then
+            if grep -q "ERR_PNPM_MINIMUM_RELEASE_AGE_VIOLATION" pnpm-output.log; then
+              echo "::error title=Supply Chain Policy Block::One or more packages violate the minimumReleaseAge policy. This PR is blocked until the packages mature."
+            fi
+            exit 1
+          fi
+
+      - name: Comment on Dependabot PRs
+        if: failure() && steps.install.outcome == 'failure' && github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'
+        run: gh pr comment ${{ github.event.pull_request.number }} --body "⚠️ **Quarantine Active:** Some packages in this PR were published too recently and violate the repository's supply chain policies. This PR will fail CI until the quarantine period expires."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: pnpm exec playwright install --with-deps chromium
 
@@ -49,7 +81,7 @@ jobs:
         env:
           CI: "1"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
