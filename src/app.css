@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+/* Enclave — "The Intake Workbench"
+ * Not a report — a tool. You load a clinical specimen, pick an extractor,
+ * and run it; the document sits on the left, structured output fills in on
+ * the right, and a transmission gauge shows — live — whether the specimen's
+ * bytes stayed on-device or crossed to the cloud. Light clinical app chrome,
+ * one green accent (contained / correct), amber for egress (off-site).
+ * Type: General Sans (UI) + JetBrains Mono (document + values). */
+
+:root {
+  color-scheme: light;
+  --background: #e9edf2; /* app chrome */
+  --card: #ffffff; /* panels */
+  --popover: #ffffff;
+  --foreground: #141a21;
+  --card-foreground: #141a21;
+  --muted: #f1f4f8;
+  --muted-foreground: #5c6873;
+  --ink-faint: #8a96a3;
+
+  --primary: #15825a; /* contained / correct */
+  --primary-foreground: #ffffff;
+  --egress: #c2700a; /* transmitted off-site */
+  --egress-foreground: #ffffff;
+  --destructive: #c0392b;
+
+  --border: #dce2e9;
+  --input: #dce2e9;
+  --ring: #15825a;
+  --radius: 0.375rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-egress: var(--egress);
+  --color-egress-foreground: var(--egress-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink-faint: var(--ink-faint);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+
+  --font-sans: var(--font-general-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* A data packet travelling device → cloud while a hosted provider transmits. */
+@keyframes packet {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+.packet {
+  animation: packet 0.9s linear infinite;
+}
+
+/* Field rows reveal as the extractor "returns" them. */
+@keyframes fieldIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.field-in {
+  animation: fieldIn 0.28s ease-out both;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+.blink {
+  animation: blink 1s step-start infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .packet,
+  .field-in,
+  .blink {
+    animation: none;
+  }
+}
