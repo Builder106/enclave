@@ -3,6 +3,7 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
   "@tailwindcss/oxide": true
+  "@parcel/watcher": true
 minimumReleaseAgeExclude:
   - '@ai-sdk/amazon-bedrock@5.0.2'
   - '@ai-sdk/anthropic@4.0.1'
