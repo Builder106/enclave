@@ -51,3 +51,4 @@ drizzle/meta
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+.vscode/settings.json
