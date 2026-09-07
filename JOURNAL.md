@@ -4,6 +4,10 @@
 > things happen — retrospectives need this raw material to land.
 > Reverse-chronological; one paragraph max per entry.
 
+## 2026-09-07 — Standardized the Node runtime on Node 24 #decision
+
+Pinned the package engine and CI jobs to Node 24 and normalized the existing pnpm declaration to pnpm 10.34.5. Clean-install, lint, typecheck, coverage, build, E2E, audit, and license checks passed under Node 24.20.0; the Vercel branch gates were preserved.
+
 ## 2026-09-01 — Rules extractor coverage boundary #note
 
 The V8 report leaves `parseMoneyCents` line 64 and its caller's line 90 uncovered even after malformed-money fixtures. Through `rulesExtract`, `MONEY_RE` only admits a digit/OCR-digit followed by allowed digits or commas and exactly two allowed cents characters; `repairAnchoredDigits` maps every admitted OCR character to a digit and commas are removed, so the post-repair format check can never fail. The merged-name nonmatch path remains reachable and is covered by a single-word `Name` fixture.
