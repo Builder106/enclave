@@ -66,6 +66,32 @@ describe('runDocument', () => {
     expect(res.costUsd).toBe(0);
   });
 
+  it('keeps rules and local extraction paths free of external provider calls', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('unexpected network call'));
+    vi.spyOn(rulesModule, 'rulesExtract').mockReturnValue(dummyExtraction);
+    vi.spyOn(matchModule, 'resolveCodes').mockReturnValue(dummyResolved);
+    vi.spyOn(anomalyModule, 'detectAnomalies').mockReturnValue([]);
+
+    const rulesResult = await runDocument({ id: 'DOC-LOCAL-1', text: 'local rules text' }, { provider: 'rules' });
+    expect(rulesResult.extraction).toEqual(dummyExtraction);
+    expect(rulesResult.egressBytes).toBe(0);
+
+    vi.spyOn(extractModule, 'llmExtract').mockResolvedValueOnce({
+      extraction: dummyExtraction,
+      usage: { inputTokens: 10, outputTokens: 5 },
+      modelId: 'qwen2.5:3b-instruct',
+      error: null,
+    });
+    const localResult = await runDocument(
+      { id: 'DOC-LOCAL-2', text: 'local model text' },
+      { provider: 'local' },
+    );
+    expect(localResult.extraction).toEqual(dummyExtraction);
+    expect(localResult.egressBytes).toBe(0);
+    expect(fetchSpy).not.toHaveBeenCalled();
+    fetchSpy.mockRestore();
+  });
+
   it('sets error when rulesExtract returns null', async () => {
     vi.spyOn(rulesModule, 'rulesExtract').mockReturnValueOnce(null);
 
