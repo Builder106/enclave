@@ -62,15 +62,16 @@ async function main(): Promise<void> {
   ).docs as GeneratedDocument[];
   const evalDocs = batch.filter((d) => d.split === "eval");
 
+  type TimestampedResult = DocumentRunResult & { _ts: number };
   const { db } = getDb();
   const rows = await db.select().from(runs).where(eq(runs.seed, 1));
-  const byKey = new Map<string, DocumentRunResult>();
+  const byKey = new Map<string, TimestampedResult>();
   for (const r of rows) {
     const key = `${r.provider}:${r.documentId}`;
     const prev = byKey.get(key);
-    if (!prev || r.createdAt > (prev as unknown as { _ts: number })._ts) {
-      const parsed = JSON.parse(r.resultJson) as DocumentRunResult;
-      (parsed as unknown as { _ts: number })._ts = r.createdAt;
+    if (!prev || r.createdAt > prev._ts) {
+      const parsed = JSON.parse(r.resultJson) as TimestampedResult;
+      parsed._ts = r.createdAt;
       byKey.set(key, parsed);
     }
   }
