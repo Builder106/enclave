@@ -56,6 +56,19 @@ function labelFor(t: SuperbillTruth): string {
   return t.injectedAnomalies[0].replace(/_/g, " ");
 }
 
+interface ProviderDemoResult {
+  model: string;
+  ok: boolean;
+  error: string | null;
+  egressBytes: number;
+  latencyMs: number;
+  costUsd: number;
+  fields: { label: string; expected: string; got: string; ok: boolean }[];
+  diagnoses: Extraction["diagnoses"];
+  lines: Extraction["lines"];
+  anomaliesFound: string[];
+}
+
 async function main(): Promise<void> {
   const batch = JSON.parse(
     readFileSync(path.join(process.cwd(), "data/documents/seed-1.json"), "utf8"),
@@ -93,7 +106,7 @@ async function main(): Promise<void> {
   picked.sort((a, b) => a.index - b.index);
 
   const documents = picked.map((d) => {
-    const providers: Record<string, unknown> = {};
+    const providers: Partial<Record<(typeof PROVIDERS)[number], ProviderDemoResult>> = {};
     for (const p of PROVIDERS) {
       const res = byKey.get(`${p}:${d.id}`);
       if (!res) continue;
