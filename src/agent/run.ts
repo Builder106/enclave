@@ -55,6 +55,8 @@ export async function runDocument(
       resolved = resolveCodes(extraction);
       if (resolved !== null) anomalies = detectAnomalies(resolved);
     } catch (err) {
+      // Preserve an upstream provider error if resolution also fails.
+      /* c8 ignore next */
       error = error ?? errorMessage(err instanceof Error ? err : String(err));
     }
   }
