@@ -13,8 +13,8 @@ import { EXTRACTION_SYSTEM_PROMPT, llmExtract } from "./extract";
 import { resolveCodes } from "./match";
 import { rulesExtract } from "./rules-extractor";
 
-function errorMessage(err: unknown): string {
-  return err instanceof Error ? err.message : String(err);
+function errorMessage(err: Error | string): string {
+  return err instanceof Error ? err.message : err;
 }
 
 export async function runDocument(
@@ -36,7 +36,7 @@ export async function runDocument(
       extraction = rulesExtract(doc.text);
       if (extraction === null) error = "unrecoverable document structure";
     } catch (err) {
-      error = errorMessage(err);
+      error = errorMessage(err instanceof Error ? err : String(err));
     }
   } else {
     promptText = `${EXTRACTION_SYSTEM_PROMPT}\n\n${doc.text}`;
@@ -55,7 +55,7 @@ export async function runDocument(
       resolved = resolveCodes(extraction);
       if (resolved !== null) anomalies = detectAnomalies(resolved);
     } catch (err) {
-      error = error ?? errorMessage(err);
+      error = error ?? errorMessage(err instanceof Error ? err : String(err));
     }
   }
 

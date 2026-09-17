@@ -149,7 +149,7 @@ async function main(): Promise<void> {
   console.log(`wrote ${file}: ${documents.length} specimens, providers ${PROVIDERS.join("/")}`);
 }
 
-main().catch((err: unknown) => {
+main().catch((err) => {
   console.error(err);
   process.exitCode = 1;
 });

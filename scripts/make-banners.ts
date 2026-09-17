@@ -4,10 +4,18 @@ import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
 
+interface OutputInfo {
+  format: string;
+  size: number;
+  width: number;
+  height: number;
+  channels: number;
+}
+
 interface SharpPipeline {
   resize(w: number, h: number): SharpPipeline;
   png(): SharpPipeline;
-  toFile(p: string): Promise<unknown>;
+  toFile(p: string): Promise<OutputInfo>;
 }
 const require = createRequire(import.meta.url);
 function loadSharp(): ((b: Buffer) => SharpPipeline) | null {
@@ -35,7 +43,7 @@ async function main(): Promise<void> {
     console.log(`wrote ${out}`);
   }
 }
-main().catch((e: unknown) => {
+main().catch((e) => {
   console.error(e);
   process.exit(1);
 });

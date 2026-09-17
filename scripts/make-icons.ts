@@ -6,11 +6,19 @@
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 
+interface OutputInfo {
+  format: string;
+  size: number;
+  width: number;
+  height: number;
+  channels: number;
+}
+
 interface SharpPipeline {
   resize(width: number, height: number): SharpPipeline;
   removeAlpha(): SharpPipeline;
   png(): SharpPipeline;
-  toFile(path: string): Promise<unknown>;
+  toFile(path: string): Promise<OutputInfo>;
 }
 type SharpFactory = (input: Buffer) => SharpPipeline;
 
@@ -65,7 +73,7 @@ async function main(): Promise<void> {
   console.log(`make-icons: wrote ${out}`);
 }
 
-main().catch((err: unknown) => {
+main().catch((err) => {
   console.error("make-icons: failed:", err);
   process.exit(1);
 });
