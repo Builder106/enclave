@@ -4,19 +4,25 @@ import { BEDROCK_PRICING, GROQ_PRICING } from '@/lib/contract';
 
 const mockChatModel = vi.fn((modelId: string) => ({ id: modelId }));
 const mockLanguageModel = vi.fn((modelId: string) => ({ id: modelId }));
-const mockCreateOpenAICompatible = vi.fn((_opts?: Record<string, unknown>) => ({
+interface ProviderOptions {
+  name?: string;
+  baseURL?: string;
+  apiKey?: string;
+  supportsStructuredOutputs?: boolean;
+}
+const mockCreateOpenAICompatible = vi.fn((_opts?: ProviderOptions) => ({
   chatModel: mockChatModel,
 }));
-const mockCreateAmazonBedrock = vi.fn((_opts?: Record<string, unknown>) => ({
+const mockCreateAmazonBedrock = vi.fn((_opts?: ProviderOptions) => ({
   languageModel: mockLanguageModel,
 }));
 
 vi.mock('@ai-sdk/openai-compatible', () => ({
-  createOpenAICompatible: (opts?: Record<string, unknown>) => mockCreateOpenAICompatible(opts),
+  createOpenAICompatible: (opts?: ProviderOptions) => mockCreateOpenAICompatible(opts),
 }));
 
 vi.mock('@ai-sdk/amazon-bedrock', () => ({
-  createAmazonBedrock: (opts?: Record<string, unknown>) => mockCreateAmazonBedrock(opts),
+  createAmazonBedrock: (opts?: ProviderOptions) => mockCreateAmazonBedrock(opts),
 }));
 
 describe('providers', () => {
