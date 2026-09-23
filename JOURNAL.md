@@ -4,6 +4,10 @@
 > things happen — retrospectives need this raw material to land.
 > Reverse-chronological; one paragraph max per entry.
 
+## 2026-09-22 — Bridge TypeScript 7 without reusing incremental diagnostics #decision
+
+Kept `typescript-eslint` on the TypeScript 6 compatibility API and added a separate TypeScript 7 source check. The TS7 check disables incremental state because a Linux ARM64 probe showed TypeScript 7.0.2 could miss a changed declaration’s diagnostic on a subsequent incremental run; a clean check detected it. This matches the upstream [incremental invalidation issue](https://github.com/microsoft/typescript-go/issues/4664). Re-enable incremental TS7 checking only after the compiler fix is verified here.
+
 ## 2026-09-07 — Standardized the Node runtime on Node 24 #decision
 
 Pinned the package engine and CI jobs to Node 24 and normalized the existing pnpm declaration to pnpm 10.34.5. Clean-install, lint, typecheck, coverage, build, E2E, audit, and license checks passed under Node 24.20.0; the Vercel branch gates were preserved.
